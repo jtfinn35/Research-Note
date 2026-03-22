@@ -1,4 +1,4 @@
-# 3GPP RAN2 #131: NTN Uplink Scheduling Analysis
+#3GPP RAN2 #131: NTN Uplink Scheduling Analysis
 
 > ### **Abstract**
 > This repository summarizes the key proposals from the 3GPP RAN2 #131 meeting regarding **6G Non-Terrestrial Networks (NTN)** uplink scheduling (R2-2600386 to R2-2600430). The core focus is on optimizing **UORA (User Over-the-Air Resource Allocation)** for pre-allocation and refining **BSR (Buffer Status Report)** trigger thresholds. These enhancements aim to mitigate signaling overhead and latency issues inherent in satellite communication environments.
