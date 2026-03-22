@@ -1,6 +1,6 @@
-#3GPP RAN2 #131: NTN Uplink Scheduling Analysis
+# 3GPP RAN2 #131: NTN Uplink Scheduling Analysis
 
-> ### **Abstract**
+> # **Abstract**
 > This repository summarizes the key proposals from the 3GPP RAN2 #131 meeting regarding **6G Non-Terrestrial Networks (NTN)** uplink scheduling (R2-2600386 to R2-2600430). The core focus is on optimizing **UORA (User Over-the-Air Resource Allocation)** for pre-allocation and refining **BSR (Buffer Status Report)** trigger thresholds. These enhancements aim to mitigate signaling overhead and latency issues inherent in satellite communication environments.
 
 ---
@@ -9,55 +9,74 @@
   
   # 直接在競爭資源上傳送 BSR，比傳統排程快得多 。
 
-•	技術背景：現有的 SR/BSR 流程是造成延遲的主因，因為資料進入空隊列後，必須經過多次Handshake才能獲得傳輸授權 。
-•	方案 - CB-BSR：
-o	讓 UE 在競爭資源上直接傳送 BSR，省去 SR 階段 。
-o	DMRS 隨機化：UE 從預設的 K 個 DMRS 序列中隨機選一個，讓基地台能在同一時頻資源下解調多個碰撞的傳輸 。
-o	身分識別：在 Payload 中放入 C-RNTI（UE ID），讓基地台知道是誰在報告緩衝區 。
-•	結果：
-o	Web page：比起傳統 20ms 周期的 SR，Bitrate 提升了約 26% 。
-o	Small uploads：Bitrate 提升高達 57% 。
-o	Realtime video： Tail latency顯著降低 。
-•	即使不使用Backoff，直接在下一個機會重試，對效能反而更好 。
+  •	技術背景：現有的 SR/BSR 流程是造成延遲的主因，因為資料進入空隊列後，必須經過多次Handshake才能獲得傳輸授權 。
+  
+  •	方案 - CB-BSR：
+    o	讓 UE 在競爭資源上直接傳送 BSR，省去 SR 階段 。
+    o	DMRS 隨機化：UE 從預設的 K 個 DMRS 序列中隨機選一個，讓基地台能在同一時頻資源下解調多個碰撞的傳輸 。
+    o	身分識別：在 Payload 中放入 C-RNTI（UE ID），讓基地台知道是誰在報告緩衝區 。
+  
+  •	結果：
+    o	Web page：比起傳統 20ms 周期的 SR，Bitrate 提升了約 26% 。
+    o	Small uploads：Bitrate 提升高達 57% 。
+    o	Realtime video： Tail latency顯著降低 。
+  
+  •	即使不使用Backoff，直接在下一個機會重試，對效能反而更好 。
 ________________________________________
+
 2. Google (R2-2600386)
-除了競爭機制，還需要「時間預測」
-•	現有機制痛點：
-o	QoS 限制：現有 5G 將大多數非運營商流量（如遊戲、XR）塞進 default non-GBR 流，導致無法使用 CG 優化 。
-o	四次握手延遲：從Data arrival到實際傳輸的過程涉及多個步驟，造成數十個 slot 的不可避免延遲 。
-•	Timed BSR：
-o	建議 BSR 格式增加「Time-to-inbound」欄位 。
-o	讓 UE 告訴基地台：未來某個特定時間點將有多少資料到達，讓基地台能「精準對齊」授權時間 。
-•	CB-BSR ：
-o	限制範圍：建議 CB-BSR 只用於傳送 BSR，不應包含資料，降低碰撞機率 。
-o	失敗監控：必須設計機制讓 UE 能快速判斷競爭失敗（e.g.  Timer 或 NACK），並在多次失敗後 Fallback 到傳統 RACH 。
+  
+  # 除了競爭機制，還需要「時間預測」
+
+  •	現有機制痛點：
+    o	QoS 限制：現有 5G 將大多數非運營商流量（如遊戲、XR）塞進 default non-GBR 流，導致無法使用 CG 優化 。
+    o	四次握手延遲：從Data arrival到實際傳輸的過程涉及多個步驟，造成數十個 slot 的不可避免延遲 。
+
+  •	Timed BSR：
+    o	建議 BSR 格式增加「Time-to-inbound」欄位 。
+    o	讓 UE 告訴基地台：未來某個特定時間點將有多少資料到達，讓基地台能「精準對齊」授權時間 。
+
+  •	CB-BSR ：
+    o	限制範圍：建議 CB-BSR 只用於傳送 BSR，不應包含資料，降低碰撞機率 。
+    o	失敗監控：必須設計機制讓 UE 能快速判斷競爭失敗（e.g.  Timer 或 NACK），並在多次失敗後 Fallback 到傳統 RACH 。
 ________________________________________
+  
 3. MediaTek (R2-2600403)
-如何讓這套機制在晶片端更高效且省電 。
-•	效率比較：
-o	Dedicated CG：為每個 UE 預留資源太浪費頻譜，因此極少部署 。
-o	Shared Resources：將資源池化讓多人共用，能大幅降低每位使用者的資源成本。
-•	CB-BSR 流程：
-o	Always-available：建立一個共享資源池，UE 有資料時立即傳送 BSR，跳過 SR 步驟 。
-o	配置方式：可透過 RRC 預先配置（類似 CG），或透過 DCI 動態指示 。
-•	失敗補救：
-o	若傳送 BSR 後在一定時間內沒收到回應，UE 應主動嘗試新的一次傳送。
-o	設定Threshold，超過則退回 RACH 程序 。
-•	亮點：對於 96% 的小型封包流量，能達成 70% 的延遲縮減 。
+    
+  # 如何讓這套機制在晶片端更高效且省電 。
+    
+  •	效率比較：
+    o	Dedicated CG：為每個 UE 預留資源太浪費頻譜，因此極少部署 。
+    o	Shared Resources：將資源池化讓多人共用，能大幅降低每位使用者的資源成本。
+
+  •	CB-BSR 流程：
+    o	Always-available：建立一個共享資源池，UE 有資料時立即傳送 BSR，跳過 SR 步驟 。
+    o	配置方式：可透過 RRC 預先配置（類似 CG），或透過 DCI 動態指示 。
+
+  •	失敗補救：
+    o	若傳送 BSR 後在一定時間內沒收到回應，UE 應主動嘗試新的一次傳送。
+    o	設定Threshold，超過則退回 RACH 程序 。
+
+  •	亮點：對於 96% 的小型封包流量，能達成 70% 的延遲縮減 。
 ________________________________________
+
 4. 聯合提案 (R2-2600429)
-確定模擬標準，以免各家公司各說各話 。
-•	大家同意的「基本假設」 (Proposal 3)：
-1.	必須含 UE ID：為了進行競爭解析（Contention resolution）。
-2.	必須有 DMRS：用於碼分多工，區分同時傳輸的用戶 。
-3.	由 BSR 觸發：該機制的主要用途是報告緩衝區狀態 。
-4.	禁用 HARQ：在競爭 BSR 階段不使用 HARQ 重傳，失敗就重新發起 。
-•	核心：
-o	SR/BSR 程序是目前端到端（E2E）性能的主要瓶頸，限制了影片串流和即時通訊的表現 。
-o	盲解碼複雜度：評估時必須考量基地台的運算負擔（Blind decoding complexity），不能讓基地台算得太辛苦 。
-o	SR 誤報問題：頻繁配置 SR 會導致False alarm上升，浪費下行 PDCCH 資源 。
+
+  # 確定模擬標準，以免各家公司各說各話 。
+  
+  •	大家同意的「基本假設」 (Proposal 3)：
+    1.	必須含 UE ID：為了進行競爭解析（Contention resolution）。
+    2.	必須有 DMRS：用於碼分多工，區分同時傳輸的用戶 。
+    3.	由 BSR 觸發：該機制的主要用途是報告緩衝區狀態 。
+    4.	禁用 HARQ：在競爭 BSR 階段不使用 HARQ 重傳，失敗就重新發起 。
+
+  •	核心：
+    o	SR/BSR 程序是目前端到端（E2E）性能的主要瓶頸，限制了影片串流和即時通訊的表現 。
+    o	盲解碼複雜度：評估時必須考量基地台的運算負擔（Blind decoding complexity），不能讓基地台算得太辛苦 。
+    o	SR 誤報問題：頻繁配置 SR 會導致False alarm上升，浪費下行 PDCCH 資源 。
 ________________________________________
-Handshaking 是延遲中最嚴重的過程，SR/BSR需要經過四次的Handshaking但這在地面網路就已經造成了數十毫秒的延遲。在聯發科的文件中也指出，SR平均延遲時間已經達到10ms，若是再加上LEO衛星的長距離傳輸，預約制的方法可能會直接讓通訊無法運作。
+
+  Handshaking 是延遲中最嚴重的過程，SR/BSR需要經過四次的Handshaking但這在地面網路就已經造成了數十毫秒的延遲。在聯發科的文件中也指出，SR平均延遲時間已經達到10ms，若是再加上LEO衛星的長距離傳輸，預約制的方法可能會直接讓通訊無法運作。
 在「專屬座位CG」過於浪費頻譜、「排隊SR」又太慢的情況下，CB – BSR似乎是目前最有效的解法。他有幾個特性，第一個是Always – available ，基地台會畫出一個共享區域讓手機可以隨時「搶答」；第二就是降低成本，跟2 – step Rach相比，CB – BSR只傳送極小的BSR封包，就算發生collision 也沒關係因為這樣的損失微乎其微；第三個就是DMRS的隨機化，手機會隨時隨機更換他們的DMRS讓基地台可以同時接收多個手機的請求以大幅提升並行處理能力。
 未來的演算法也有幾個防呆機制是必須要存在的。第一個就是Fallback，當競爭太激烈導致連續失敗的時候要果斷放棄搶答並退回去使用傳統的模式來確保連線不會中斷；第二個就是Timed BSR，在Google的文件中也有提到我們不僅僅是要解決現在的問題，更甚至要能夠預測未來資料到達的時間才能達到0延遲。
 
