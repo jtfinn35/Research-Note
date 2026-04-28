@@ -8,14 +8,14 @@
 
 ---
 
-## 2. 5G 協定棧 (Protocol Stack) 深度解析
+## 2. 5G 協定棧 (Protocol Stack)
 
 ### L3 - 無線資源控制層
 * **RRC (Radio Resource Control)**：負責基地台與手機間的連線建立、狀態管理（Idle/Connected）及換手 (Handover)。
 
 5G 協定與傳統 IP 協定的最大差異在於 **L2 (Data Link Layer)**。
 
-### L2 - 無線連接層 (重點子層)
+### L2 - 無線連接層
 | 協定層 | 全名 | 主要功能 |
 | :--- | :--- | :--- |
 | **SDAP** | Service Data Adaptation Protocol | **階級制度 (QoS)**：根據服務類型（如視訊、下載）貼上標籤，分配不同優先權。 |
@@ -56,7 +56,7 @@
 
 ---
 
-## 6. 實作指令參考 (Cheat Sheet)
+## 6. 實作重要指令參考
 
 ### 系統與進程管理
 ```bash
