@@ -83,5 +83,5 @@ ________________________________________
 
 ---
 
-## 🔗 References
+## References
 * [3GPP RAN2 Document Repository](https://www.3gpp.org/ftp/Meetings_3GPP_SYNC/RAN2/Docs)
