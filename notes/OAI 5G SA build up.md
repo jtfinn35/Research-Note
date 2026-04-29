@@ -15,6 +15,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 # 安裝 Docker 套件
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
 
 **注意： 執行完上述指令後，先登出再重新登入，或輸入 newgrp docker 讓群組權限生效。
 
