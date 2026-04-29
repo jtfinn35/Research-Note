@@ -20,7 +20,7 @@ sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-**注意： 執行完上述指令後，先登出再重新登入，或輸入 newgrp docker 讓群組權限生效。
+**注意： 執行完上述指令後，執行 reboot 讓系統重新啟動
 
 ---
 
@@ -35,10 +35,14 @@ unzip ~/oai-cn5g.zip
 mv ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_resources/oai-cn5g ~/oai-cn5g
 rm -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zip
 
-# 進入資料夾，拉取映像檔並啟動核心網
+# 進入資料夾，拉取映像檔 (Image) 並啟動核心網
 cd ~/oai-cn5g
 docker compose pull
 docker compose up -d
+
+**-d：Detached（分離模式 / 背景執行）。非常重要！
+如果只打 docker compose up，核心網啟動後，它運作的無數行日誌（Log）就會瘋狂洗版 Terminal 視窗，進而被卡死。
+```
 
 ---
 
