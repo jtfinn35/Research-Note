@@ -68,3 +68,6 @@ sudo kill -9 <PID>
 
 # 切換為超級使用者 (Root)
 sudo -i
+
+# 關閉所有背景執行的程式
+sudo killall -9 nr-softmodem nr-uesoftmodem
