@@ -111,6 +111,27 @@ docker compose up -d
 
 ## 6. 執行 RF Simulator 模擬連線
 
+```Bash
+# 啟動基地台 (gNB)
+sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 --rfsim --rfsimulator.[0].serveraddr server
+
+# 執行手機端 (nrUE)
+sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim --rfsimulator.serveraddr 127.0.0.1
+
+# 透過 5G 模擬手機的虛擬網卡，測試是否能連上外部的網際網路
+ping -I oaitun_ue1 8.8.8.8
+
+# 完成後關閉 5G 核心網
+cd ~/oai-cn5g
+docker compose down
+
+# 確認沒有任何基地台或手機於背景執行
+pgrep -l nr-softmodem
+pgrep -l nr-uesoftmodem
+
+# 確認射頻通訊埠 (4043) 關閉
+sudo ss -tuln | grep 4043
+
+# 確認 Docker 核心網關閉
+docker ps | grep oai
 ---
-
-
