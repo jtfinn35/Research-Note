@@ -47,11 +47,14 @@ docker compose up -d
 ---
 
 ## 3. 安裝 UHD 驅動 (OAI 編譯相依套件)
+
 即使我們只用 RF Simulator 而不接實體 USRP 天線，OAI 底層的編譯依然依賴 UHD 函式庫，必須先從源碼編譯它：
 
-Bash
-# 安裝相依套件
+```Bash
+# 安裝相依套件 (Dependencies)
 sudo apt install -y autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml
+# -y 會讓系統在下載過程自動回答yes
+
 
 # 從源碼編譯 UHD
 git clone https://github.com/EttusResearch/uhd.git ~/uhd
