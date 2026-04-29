@@ -42,7 +42,7 @@ docker compose up -d
 ```
 
 **Detached -d（分離模式 / 背景執行）。非常重要！**
-如果只打 docker compose up，核心網啟動後，它運作的無數行日誌（Log）就會瘋狂洗版 Terminal 視窗，進而被卡死。
+如果只打 docker compose up，核心網啟動後，它的運作日誌（Log）就會洗版 Terminal 視窗，進而被卡死。
 
 ---
 
