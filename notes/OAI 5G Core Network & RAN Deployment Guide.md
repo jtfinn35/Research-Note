@@ -14,7 +14,7 @@ python3 core-network.py --type OAI-OAI-OAI --scenario 1 --capture /tmp/oai_pcap.
 ```
 
 ### Details
-5G 核心網由很多微服務（AMF、SMF、UPF、NRF 等）組成。我們利用 Docker 把這些服務以「貨櫃」的形式一次性跑起來。同時，Docker 會在電腦裡建立一張專屬的「虛擬網卡」，作為總公司的內部網路。
+5G 核心網由很多微服務（AMF、SMF、UPF、NRF 等）組成。我們利用 Docker 把這些服務以「貨櫃」的形式一次性跑起來。同時，Docker 會在電腦裡建立一張專屬的虛擬網卡，作為總公司的內部網路。
 
 ---
 
