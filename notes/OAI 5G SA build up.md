@@ -1,7 +1,8 @@
-** 1. 安裝 Docker (為 5G 核心網做準備)
+## 1. 安裝 Docker (為 5G 核心網做準備)
+
 核心網 (CN5G) 是透過 Docker 容器來運作的，首先需要安裝 Docker 與相關套件：
 
-Bash
+```Bash
 sudo apt update
 sudo apt install -y git net-tools putty ca-certificates curl
 
@@ -15,14 +16,15 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-# 將當前使用者加入 docker 群組 (避免每次都要打 sudo)
-sudo usermod -a -G docker $(whoami)
-注意： 執行完上述指令後，建議先登出再重新登入，或直接輸入 newgrp docker 讓群組權限生效。
+**注意： 執行完上述指令後，先登出再重新登入，或輸入 newgrp docker 讓群組權限生效。
 
-2. 下載並啟動 OAI 5G 核心網 (CN5G)
+---
+
+## 2. 下載並啟動 OAI 5G 核心網 (CN5G)
+
 取得官方寫好的 Docker Compose 設定檔，並把核心網架設起來：
 
-Bash
+```Bash
 # 下載並解壓縮設定檔
 wget -O ~/oai-cn5g.zip https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g
 unzip ~/oai-cn5g.zip
@@ -33,6 +35,9 @@ rm -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zi
 cd ~/oai-cn5g
 docker compose pull
 docker compose up -d
+
+---
+
 3. 安裝 UHD 驅動 (OAI 編譯相依套件)
 即使我們只用 RF Simulator 而不接實體 USRP 天線，OAI 底層的編譯依然依賴 UHD 函式庫，必須先從源碼編譯它：
 
@@ -51,6 +56,9 @@ make -j $(nproc)
 sudo make install
 sudo ldconfig
 sudo uhd_images_downloader
+
+---
+
 4. 下載與編譯 OAI 基地台 (gNB) 與手機端 (nrUE)
 接下來編譯 OAI 主程式。這步驟會花費較多時間，指令中的 -j 或 --ninja 會盡可能調用你的 CPU 多核心來加速：
 
@@ -70,6 +78,9 @@ sudo apt install -y libforms-dev libforms-bin
 # 同時編譯 gNB 與 nrUE
 cd ~/openairinterface5g/cmake_targets
 ./build_oai -w USRP --ninja --nrUE --gNB --build-lib "nrscope" -C
+
+---
+
 5. 執行 RF Simulator 模擬 (開啟三個終端機)
 環境都準備好後，我們需要模擬端對端連線。請開啟三個獨立的 Terminal 視窗：
 
@@ -88,6 +99,9 @@ Terminal 3：啟動 OAI nrUE (手機)
 Bash
 cd ~/openairinterface5g/cmake_targets/ran_build/build
 sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim
+
+---
+
 6. 端對端連線測試
 當 UE 成功連接上 gNB 並且完成註冊到 5G 核心網後，作業系統會產生一個名為 oaitun_ue1 的虛擬網路介面（這代表手機的網卡）。
 
