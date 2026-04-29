@@ -53,20 +53,32 @@ docker compose up -d
 ```Bash
 # 安裝相依套件 (Dependencies)
 sudo apt install -y autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml
-# -y 會讓系統在下載過程自動回答yes
+  # -y 會讓系統在下載過程自動回答yes
 
 
-# 從源碼編譯 UHD
+# 取得原始碼與選定版本
 git clone https://github.com/EttusResearch/uhd.git ~/uhd
 cd ~/uhd
 git checkout v4.8.0.0
+
+# 外部編譯 (Out-of-source build)
 cd host
 mkdir build && cd build
+  # 為了隔離建構產物 (Build artifacts，如 .o 目的檔、CMake 快取) 與原始碼樹 (Source tree)，保持版本控制目錄的乾淨
+
+# 建構系統生成 (Build System Generation)
 cmake ../
+
+# 編譯與連結 (Compilation & Linking)
 make -j $(nproc)
+  # $(nproc) ：輸出系統目前的邏輯核心數
+  # -j (Jobs) ：指示 GNU Make 啟動平行編譯 (Parallel Compilation)，藉由多執行緒最大化 CPU 利用率，縮短建構時間
+
+# 安裝與動態連結器快取更新與韌體下載
 sudo make install
 sudo ldconfig
 sudo uhd_images_downloader
+```
 
 ---
 
