@@ -39,14 +39,14 @@ rm -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zi
 cd ~/oai-cn5g
 docker compose pull
 docker compose up -d
+```
 
 **Detached -d（分離模式 / 背景執行）。非常重要！**
 如果只打 docker compose up，核心網啟動後，它運作的無數行日誌（Log）就會瘋狂洗版 Terminal 視窗，進而被卡死。
-```
 
 ---
 
-3. 安裝 UHD 驅動 (OAI 編譯相依套件)
+## 3. 安裝 UHD 驅動 (OAI 編譯相依套件)
 即使我們只用 RF Simulator 而不接實體 USRP 天線，OAI 底層的編譯依然依賴 UHD 函式庫，必須先從源碼編譯它：
 
 Bash
