@@ -42,13 +42,13 @@ docker compose up -d
 ```
 
 **Detached -d（分離模式 / 背景執行）。非常重要！**
-如果只打 docker compose up，核心網啟動後，它的運作日誌（Log）就會洗版 Terminal 視窗，進而被卡死。
+如果只打 docker compose up，核心網啟動後，運作日誌（Log）就會洗版 Terminal 視窗，進而被卡死。
 
 ---
 
 ## 3. 安裝 UHD 驅動 (OAI 編譯相依套件)
 
-即使我們只用 RF Simulator 而不接實體 USRP 天線，OAI 底層的編譯依然依賴 UHD 函式庫，必須先從源碼編譯它：
+即使只用 RF Simulator 而不接實體 USRP 天線，OAI 底層的編譯依然依賴 UHD 函式庫，必須先從源碼編譯：
 
 ```Bash
 # 安裝相依套件 (Dependencies)
@@ -82,14 +82,15 @@ sudo uhd_images_downloader
 
 ---
 
-4. 下載與編譯 OAI 基地台 (gNB) 與手機端 (nrUE)
-接下來編譯 OAI 主程式。這步驟會花費較多時間，指令中的 -j 或 --ninja 會盡可能調用你的 CPU 多核心來加速：
+## 4. 下載與編譯 OAI 基地台 (gNB) 與手機端 (nrUE)
+編譯 OAI 主程式。
 
-Bash
-# 取得 OAI 源碼 (使用 develop 分支)
+```Bash
+# 取得 OAI 主程式原始碼並切換至 develop 分支
 git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g
 cd ~/openairinterface5g
 git checkout develop
+  # develop 分支通常為整合最新功能（Features）與錯誤修復（Bug Fixes）的主要開發分支
 
 # 安裝 OAI 特定的系統相依套件
 cd ~/openairinterface5g/cmake_targets
@@ -101,10 +102,11 @@ sudo apt install -y libforms-dev libforms-bin
 # 同時編譯 gNB 與 nrUE
 cd ~/openairinterface5g/cmake_targets
 ./build_oai -w USRP --ninja --nrUE --gNB --build-lib "nrscope" -C
+```
 
 ---
 
-5. 執行 RF Simulator 模擬 (開啟三個終端機)
+## 5. 執行 RF Simulator 模擬 (開啟三個終端機)
 環境都準備好後，我們需要模擬端對端連線。請開啟三個獨立的 Terminal 視窗：
 
 Terminal 1：確認核心網運行中
@@ -125,7 +127,7 @@ sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi
 
 ---
 
-6. 端對端連線測試
+## 6. 端對端連線測試
 當 UE 成功連接上 gNB 並且完成註冊到 5G 核心網後，作業系統會產生一個名為 oaitun_ue1 的虛擬網路介面（這代表手機的網卡）。
 
 你可以開啟 Terminal 4，嘗試從這個虛擬手機介面 Ping 核心網的預設 IP (192.168.70.135)，如果有封包回應，代表你的 5G SA 模擬網路已經成功通了！
