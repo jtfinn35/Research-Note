@@ -134,4 +134,3 @@ sudo ss -tuln | grep 4043
 
 # 確認 Docker 核心網關閉
 docker ps | grep oai
----
