@@ -130,12 +130,14 @@ docker ps
 ### 6.2 啟動基站 (gNB) 與終端 (nrUE) 連線
 **啟動 gNB (Window 1)**：
 ```bash
+cd ~/openairinterface5g/cmake_targets/ran_build/build
 sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 --rfsim --rfsimulator.[0].serveraddr server
 ```
 
 **啟動 nrUE (Window 2)**：
 ```bash
-sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim --rfsimulator.serveraddr 127.0.0.1
+cd ~/openairinterface5g/cmake_targets/ran_build/build
+sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --rfsim --rfsimulator.serveraddr 127.0.0.1 --uicc0.imsi 001010000000001 --uicc0.nssai_sst 1 --uicc0.dnn oai
 ```
 **預期結果 (Expected Output)**：
 
