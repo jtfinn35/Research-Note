@@ -126,7 +126,8 @@ docker ps
 ```
 **預期結果 (Expected Output)**：
 > ```text
-> [請在此貼上你執行 docker ps 後，終端機顯示 OAI 容器 (AMF, SMF, UPF 等) 都在 Up / healthy 狀態的 Log 或截圖]
+> [<img width="1807" height="516" alt="image" src="https://github.com/user-attachments/assets/be29a39d-3756-439b-8019-55f9e757f498" />
+]
 > ```
 
 ### 6.2 啟動基站 (gNB) 與終端 (nrUE) 連線
