@@ -31,7 +31,7 @@
 
 *   **實體硬體 (Host Machine)**：Acer Predator PHN16-72 (32GB RAM, 32 Logical Cores)
 *   **虛擬化環境**：Windows Subsystem for Linux (WSL2) v2.6.3
-    *   *效能調優策略*：由於 WSL2 預設會將記憶體限制為實體 RAM 的 50% (16GB)。若貿然執行 `make -j $(nproc)` (32 執行緒平行編譯)，極易耗盡記憶體導致程序被強制終止 (Killed)。因此已透過 Windows 端 `%userprofile%\.wslconfig` 重新分配資源：
+    *   效能調優策略：由於 WSL2 預設會將記憶體限制為實體 RAM 的 50% (16GB)。若貿然執行 `make -j $(nproc)` (32 執行緒平行編譯)，極易耗盡記憶體導致程序被強制終止 (Killed)。因此已透過 Windows 端 `%userprofile%\.wslconfig` 重新分配資源：
         ```ini
         [wsl2]
         memory=24GB
@@ -39,7 +39,6 @@
         swap=8GB
         ```
 *   **作業系統**：Ubuntu 22.04 LTS (Kernel 6.6.87)
-    *   *選擇考量*：OAI 系統對依賴套件 (如 CMake, Boost 等) 版本要求嚴格，強烈建議使用此 LTS 版本以確保相容性。
 *   **容器化配置調優 (Docker Compose)**：
     *   由於 OAI 官方提供的 `docker-compose.yaml` 預設時區為法國巴黎 (`TZ=Europe/Paris`)。為確保後續 6G/NTN 排程延遲 (Scheduling Latency) 實驗的 Log 時間戳記與本機環境一致，已將核心網所有 NFs (如 MySQL, AMF, SMF 等) 的環境變數修改為台灣標準時間：
         
