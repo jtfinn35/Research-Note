@@ -1,9 +1,9 @@
 ```markdown
 # OAI 5G SA (Standalone) 網路環境建置與測試手冊
 
-> **文件版本**: v1.0
-> **作者**: 黃仁廷 (JTFinn)
-> **建立日期**: 2026-05-03
+> 文件版本* v1.0
+> 作者: 黃仁廷 (JTFinn)
+> 建立日期: 2026-05-03
 
 ## 目錄 (Table of Contents)
 1. [專案概述 (Executive Summary)](#1-專案概述-executive-summary)
