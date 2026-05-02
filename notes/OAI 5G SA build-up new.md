@@ -138,8 +138,9 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim --rfsimulator.serveraddr 127.0.0.1
 ```
 **預期結果 (Expected Output)**：
+**UE 連線狀態驗證**：
+![UE_Connection_Success](<img width="898" height="59" alt="image" src="https://github.com/user-attachments/assets/4629739f-117f-453f-ad29-7117171fcc8d" />)
 
-<img width="898" height="59" alt="image" src="https://github.com/user-attachments/assets/4629739f-117f-453f-ad29-7117171fcc8d" />
 ---
 <img width="1057" height="97" alt="image" src="https://github.com/user-attachments/assets/c9e25acd-9084-491c-9e46-ffdeb2f1216b" />
 ---
