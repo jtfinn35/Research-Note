@@ -126,34 +126,8 @@ docker ps
 ```
 **預期結果 (Expected Output)**：
 
-```text
-jtfinn@DESKTOP-4VFQQL9:~/oai-cn5g$ docker compose up -d
-[+] up 11/11
- ✔ Network oai-cn5g-public-net Created                                                                  0.0s
- ✔ Container oai-nrf           Started                                                                  1.1s
- ✔ Container ims               Started                                                                  1.1s
- ✔ Container mysql             Started                                                                  1.1s
- ✔ Container oai-ext-dn        Started                                                                  1.0s
- ✔ Container oai-udr           Started                                                                  1.1s
- ✔ Container oai-udm           Started                                                                  1.2s
- ✔ Container oai-ausf          Started                                                                  1.3s
- ✔ Container oai-amf           Started                                                                  1.4s
- ✔ Container oai-smf           Started                                                                  1.6s
- ✔ Container oai-upf           Started                                                                  2.0s
-
-jtfinn@DESKTOP-4VFQQL9:~/oai-cn5g$ docker ps
-CONTAINER ID   IMAGE                                     COMMAND                  CREATED          STATUS                            PORTS                                                NAMES
-542be273748c   oaisoftwarealliance/oai-upf:develop       "sh /openair-upf/bin…"   9 seconds ago    Up 7 seconds (health: starting)   2152/udp, 8805/udp, 5342-5344/tcp                    oai-upf
-2f77bd3c5ebb   oaisoftwarealliance/oai-smf:develop       "/openair-smf/bin/oa…"   9 seconds ago    Up 7 seconds (health: starting)   80/tcp, 5342-5344/tcp, 8080/tcp, 9090/tcp, 8805/udp  oai-smf
-726b505a8e92   oaisoftwarealliance/oai-amf:develop       "/openair-amf/bin/oa…"   9 seconds ago    Up 7 seconds (health: starting)   80/tcp, 5342-5344/tcp, 8080/tcp, 9090/tcp, 38412/sctp  oai-amf
-b9cec451c60d   oaisoftwarealliance/oai-ausf:develop      "/openair-ausf/bin/o…"   9 seconds ago    Up 7 seconds (health: starting)   80/tcp, 5342-5344/tcp, 8080/tcp                      oai-ausf
-47e78be0a35b   oaisoftwarealliance/oai-udm:develop       "/openair-udm/bin/oa…"   9 seconds ago    Up 7 seconds (health: starting)   80/tcp, 5342-5344/tcp, 8080/tcp                      oai-udm
-c04d9a0461fa   oaisoftwarealliance/oai-udr:develop       "/openair-udr/bin/oa…"   9 seconds ago    Up 8 seconds (health: starting)   80/tcp, 8080/tcp                                     oai-udr
-f3b50def7523   mysql:9.6                                 "docker-entrypoint.s…"   10 seconds ago   Up 8 seconds (health: starting)   3306/tcp, 33060/tcp                                  mysql
-1b09b64608ec   oaisoftwarealliance/oai-nrf:develop       "/openair-nrf/bin/oa…"   10 seconds ago   Up 8 seconds (health: starting)   80/tcp, 5342-5344/tcp, 8080/tcp                      oai-nrf
-2594e32d475f   oaisoftwarealliance/trf-gen-cn5g:latest   "/bin/bash -c ' ip r…"   10 seconds ago   Up 8 seconds (healthy)                                                                 oai-ext-dn
-a49d1d94cefd   oaisoftwarealliance/ims:latest            "asterisk -fp"           10 seconds ago   Up 8 seconds (healthy)                                                                 ims
-```
+[<img width="1807" height="516" alt="螢幕擷取畫面 2026-05-03 003342" src="https://github.com/user-attachments/assets/2bdeb6ad-36e6-4d11-9583-101ab6c4aedb" />
+]
 
 ### 6.2 啟動基站 (gNB) 與終端 (nrUE) 連線
 **啟動 gNB (Window 1)**：
