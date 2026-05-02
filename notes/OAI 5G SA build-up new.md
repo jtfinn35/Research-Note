@@ -1,11 +1,10 @@
-```markdown
 # OAI 5G SA (Standalone) 網路環境建置與測試手冊
 
-> 文件版本* v1.0
-> 作者: 黃仁廷 (JTFinn)
-> 建立日期: 2026-05-03
+> **文件版本** v1.0
+> **作者**: 黃仁廷 (JTFinn)
+> **建立日期**: 2026-05-03
 
-## 目錄 (Table of Contents)
+### 目錄 (Table of Contents)
 1. [專案概述 (Executive Summary)](#1-專案概述-executive-summary)
 2. [系統架構與網路拓樸 (Architecture & Topology)](#2-系統架構與網路拓樸-architecture--topology)
 3. [測試環境與前置準備 (Prerequisites)](#3-測試環境與前置準備-prerequisites)
@@ -17,23 +16,23 @@
 
 ---
 
-## 1. 專案概述 (Executive Summary)
+### 1. 專案概述 (Executive Summary)
 本文件旨在提供 OpenAirInterface (OAI) 5G Standalone (SA) 模式的標準安裝與測試流程。透過 WSL2 環境建置 OAI 核心網 (CN5G) 與無線接取網 (RAN)，並使用 RF Simulator 完成基站 (gNB) 與終端設備 (UE) 的端到端 (E2E) 模擬連線測試，為後續導入 PRACH 攻擊與防禦演算法建立基礎測試平台。
 
-## 2. 系統架構與網路拓樸 (Architecture & Topology)
+### 2. 系統架構與網路拓樸 (Architecture & Topology)
 本環境採純軟體模擬，包含以下三個主要節點，所有連線皆於本機 (Localhost/127.0.0.1) 內網進行：
 *   **OAI-CN5G (5G Core Network)**：透過 Docker Compose 部署，包含 AMF, SMF, UPF, NRF 等核心網路功能 (NFs)。
 *   **OAI gNB (基地台)**：透過 OAI RAN 原始碼編譯，啟用 `nr-softmodem` 並使用 RF Simulator 取代實體 USRP 硬體介面。
 *   **OAI nrUE (終端設備)**：透過 OAI RAN 原始碼編譯，啟用 `nr-uesoftmodem` 模擬 5G SA 終端設備，建立 `oaitun_ue1` 虛擬網卡與核心網進行資料傳輸。
 
-## 3. 測試環境與前置準備 (Prerequisites)
+### 3. 測試環境與前置準備 (Prerequisites)
 *   **運行環境**：Windows Subsystem for Linux (WSL2)
 *   **作業系統**：Ubuntu LTS
 *   **硬體需求**：建議配置至少 8 核心 CPU 與 16GB RAM 以利源碼平行編譯 (-j nproc)。
 
 ---
 
-## 4. 安裝與操作步驟 (Step-by-Step Guide)
+### 4. 安裝與操作步驟 (Step-by-Step Guide)
 
 ### 4.1 安裝 Docker (5G 核心網運行環境)
 ```bash
