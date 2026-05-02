@@ -138,9 +138,15 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi 001010000000001 --rfsim --rfsimulator.serveraddr 127.0.0.1
 ```
 **預期結果 (Expected Output)**：
-> ```text
-> [請在此貼上 UE 終端機顯示 RRC Connection Setup Complete，或是分配到 IP 的綠字 Log 截圖]
-> ```
+<img width="898" height="59" alt="image" src="https://github.com/user-attachments/assets/4629739f-117f-453f-ad29-7117171fcc8d" />
+
+<img width="1057" height="97" alt="image" src="https://github.com/user-attachments/assets/c9e25acd-9084-491c-9e46-ffdeb2f1216b" />
+<img width="1268" height="475" alt="image" src="https://github.com/user-attachments/assets/0b2a7c26-38bf-44ea-a9f9-42c38192f7e3" />
+<img width="822" height="38" alt="image" src="https://github.com/user-attachments/assets/4fa81a83-6cb5-4b67-9b7f-62a1bf1a37c7" />
+
+
+
+
 
 ### 6.3 資料平面 (Data Plane) Ping 測試
 連線建立後，確認虛擬網卡 `oaitun_ue1` 是否能連至外部網路。
