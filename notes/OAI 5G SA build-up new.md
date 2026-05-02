@@ -125,9 +125,7 @@ docker compose up -d
 docker ps
 ```
 **預期結果 (Expected Output)**：
-
-[<img width="1807" height="516" alt="螢幕擷取畫面 2026-05-03 003342" src="https://github.com/user-attachments/assets/2bdeb6ad-36e6-4d11-9583-101ab6c4aedb" />
-]
+<img width="1807" height="516" alt="螢幕擷取畫面 2026-05-03 003342" src="https://github.com/user-attachments/assets/2bdeb6ad-36e6-4d11-9583-101ab6c4aedb" />
 
 ### 6.2 啟動基站 (gNB) 與終端 (nrUE) 連線
 **啟動 gNB (Window 1)**：
