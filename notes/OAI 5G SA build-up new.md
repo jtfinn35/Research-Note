@@ -142,11 +142,13 @@ sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --uicc0.imsi
 #### 6.2.1 gNB 基站端連線確認
 
 <img width="898" height="59" alt="image" src="https://github.com/user-attachments/assets/4629739f-117f-453f-ad29-7117171fcc8d" />
+
 > 基地台端成功分配 RNTI 並完成 RRC 連線建立。
 
 #### 6.2.2 nrUE 終端端連線程序
 
 <img width="1306" height="1205" alt="image" src="https://github.com/user-attachments/assets/beefdc4c-508a-4257-8faa-7dea86b90a68" />
+
 > 手機端完整之信令流程，涵蓋從實體層同步至 NAS 層註冊完成。
 
 ### 6.3 資料平面 (Data Plane) Ping 測試
