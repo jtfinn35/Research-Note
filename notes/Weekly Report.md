@@ -6,7 +6,7 @@
 
 * **[Environment Setup] OAI 5G SA End-to-End Connection Testing**
   * **Status:** COMPLETED
-  * **Objective:** 在 WSL2 環境下完成 gNB 與 UE 的 5G 資料隧道 (Data Plane) 架設，產出標準化技術文件。
+  * **Objective:** Complete the deployment of the 5G Data Plane tunnel between gNB and UE in the WSL2 environment and produce standardized technical documentation.
 
 ---
 ### [Week of 2026-04-27 ~ 2026-05-03]
