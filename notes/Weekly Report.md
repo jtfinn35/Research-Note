@@ -1,12 +1,12 @@
 ## 🎯 Short-term Goals
 
-* **[Environment Setup] OAI 5G SA End-to-End Connection Testing**
-  * **Status:** COMPLETED
-  * **Objective:** 在 WSL2 環境下完成 gNB 與 UE 的 5G 資料隧道 (Data Plane) 架設，產出標準化技術文件。
-
 * **[Literature Review] 5G/6G Random Access Channel Attack, Detection, and Mitigation**
   * **Status:** IN PROGRESS
   * **Objective:** 詳閱由鄭瑞光教授與陳奕全 (Richard) 學長共同發表的論文，深入探討 RACH 攻擊模式與防禦機制，為後續實作建立理論基礎。
+
+* **[Environment Setup] OAI 5G SA End-to-End Connection Testing**
+  * **Status:** COMPLETED
+  * **Objective:** 在 WSL2 環境下完成 gNB 與 UE 的 5G 資料隧道 (Data Plane) 架設，產出標準化技術文件。
 
 ---
 
