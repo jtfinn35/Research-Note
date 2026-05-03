@@ -208,6 +208,19 @@ ping -c 100 -I oaitun_ue1 192.168.70.135
     *   **Root Cause**: 這是 WSL2 虛擬環境特有的「CPU 資源時序崩潰」。5G 實體層對運算時間極度敏感，若 Windows 背景有其他吃資源的程式導致 CPU 卡頓，就會破壞 OAI 的時間軸。
     *   **Solution**: 關閉 Windows 背景不必要的大型軟體 (如多個瀏覽器分頁、防毒掃描)，釋放 CPU 資源後重新啟動 gNB 與 nrUE 即可。
 
+*   **Issue 4: 啟動核心網時，UPF 容器不斷重啟 (Exit Code 1)**
+    *   **Root Cause**: OAI `develop` 分支已全面將 UPF 的設定檔格式從傳統的 `.conf` 升級為 `.yaml`。若套用舊版的 `docker-compose.yaml`，容器會因找不到正確的設定檔路徑而崩潰。
+    *   **Solution**: 檢查 `docker-compose.yaml` 中 `oai-upf` 的 `volumes` 掛載設定，確保將設定檔路徑掛載至 `/openair-upf/etc/config.yaml` 而非舊版的 `upf.conf`。
+
+*   **Issue 5: UE 成功取得 IP，但 Ping 10.0.0.1 呈現 100% Packet Loss**
+    *   **Root Cause**: 這是一個常見的「假警報」。`10.0.0.1` 是 UPF 內部的虛擬閘道器 IP，基於安全與路由規則，OAI UPF 預設會「無視 (Drop)」直接打給它自己的 ICMP Ping 封包。
+    *   **Solution**: 不要 Ping UPF 內部 IP。請進行「穿透測試」，直接 Ping 外部資料網路的伺服器 (如 `192.168.70.135` 或 `8.8.8.8`)，才能真實反映 5G 隧道的連通性。
+
+*   **Issue 6: UE 成功連線並取得 IP，卻在最後一秒顯示 [CONFIG] unknown option: --sa 並自殺閃退**
+    *   **Root Cause**: OAI 參數解析器的順序與版本相容性問題。在某些 `develop` 版本的 Commit 中，若參數放置順序不當，解析器會在連線完成後的檢查階段判定該參數為未知選項並強制中斷軟體。
+    *   **Solution**: 確保 `--sa` 參數緊接在 `-O .../ue.conf` 之後，並嚴格遵循本手冊第 6.2 節提供的指令參數順序執行。
+
+
 ## 8. 參考文獻 (References)
 *   [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
 *   [OAI 5G SA nrUE Execution Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_nrUE.md?ref_type=heads)
