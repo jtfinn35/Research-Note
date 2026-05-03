@@ -54,14 +54,14 @@ To ensure the stability of the OAI system during compilation and execution, and 
 
 ---
 
-### 4. 安裝與操作步驟 (Step-by-Step Guide)
+### 4. Step-by-Step Guide
 
-### 4.1 安裝 Docker (5G 核心網運行環境)
+#### 4.1 Install Docker (5G Core Network Runtime Environment)
 ```bash
 sudo apt update
 sudo apt install -y git net-tools putty ca-certificates curl
 
-# 加入 Docker 官方 GPG 密鑰與軟體源
+# Add Docker's official GPG key and repository
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL [https://download.docker.com/linux/ubuntu/gpg](https://download.docker.com/linux/ubuntu/gpg) -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
