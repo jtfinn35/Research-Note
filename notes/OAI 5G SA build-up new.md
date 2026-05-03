@@ -1,8 +1,14 @@
 # OAI 5G SA (Standalone) 網路環境建置與測試手冊
 
-> **文件版本** v1.0
+![Version](https://img.shields.io/badge/version-v1.0-blue.svg)
+![Status](https://img.shields.io/badge/status-verified-brightgreen.svg)
+![OS](https://img.shields.io/badge/OS-Ubuntu_22.04-orange.svg)
+
 > **作者**: 黃仁廷 (JTFinn)
 > **建立日期**: 2026-05-03
+
+> ⚠️ **Note / 注意事項**
+> 本手冊所有測試皆基於 OAI `develop` 分支。由於開源專案更新頻繁，若您在不同時間點 `git clone`，可能會遇到核心網設定檔格式 (如 YAML) 或編譯參數的差異。執行本 SOP 前，請確保您的硬體具備至少 24GB 以上的可用記憶體。
 
 ### 目錄 (Table of Contents)
 1. [專案概述 (Executive Summary)](#1-專案概述-executive-summary)
@@ -91,16 +97,17 @@ sudo uhd_images_downloader
 
 ### 4.4 編譯 OAI 基地台 (gNB) 與手機端 (nrUE)
 ```bash
-git clone [https://gitlab.eurecom.fr/oai/openairinterface5g.git](https://gitlab.eurecom.fr/oai/openairinterface5g.git) ~/openairinterface5g
+# 1. 取得原始碼並切換至 develop 分支
+git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g
 cd ~/openairinterface5g
 git checkout develop
 
-# 執行自動建置腳本
+# 2. 安裝自動建置腳本所需的相依套件
 cd ~/openairinterface5g/cmake_targets
 ./build_oai -I
 sudo apt install -y libforms-dev libforms-bin
 
-# 同時編譯 gNB 與 nrUE
+# 3. 執行平行編譯 (包含 gNB, nrUE 與 RF Simulator)
 ./build_oai -w USRP --ninja --nrUE --gNB --build-lib "nrscope" -C
 ```
 
@@ -196,29 +203,16 @@ ping -c 100 -I oaitun_ue1 192.168.70.135
 
 ## 7. 常見問題與排除 (Troubleshooting)
 
-*   **Issue 1: 基地台 (gNB) 出現 `Assertion (b->th.nbAnt != 0) failed!` 並閃退**
-    *   **Root Cause**: 手機端 (UE) 啟動指令不完整，未使用 `ue.conf` 設定檔或遺漏 `--sa` 參數，導致實體層天線數量未能正確初始化，發送了錯誤的配置給基地台。
-    *   **Solution**: 完全複製 6.2 節的 nrUE 啟動指令，確保 `-O .../ue.conf` 與 `--sa` 參數同時存在。
+在建置或運行過程中若遇到報錯，請對照下表進行問題排除：
 
-*   **Issue 2: 手機端 (nrUE) 顯示 `Registration reject` 或無法取得 IP**
-    *   **Root Cause**: UE 嘗試使用的 IMSI 號碼不存在於核心網的 MySQL 資料庫中。
-    *   **Solution**: 在啟動 nrUE 時，在指令列尾端加入 `--uicc0.imsi 001010000000001` 強制覆寫設定檔內的假號碼。
-
-*   **Issue 3: UE 運行中突然出現 `Gap in writing to USRP` 與 `errno(14)` 並斷線**
-    *   **Root Cause**: 這是 WSL2 虛擬環境特有的「CPU 資源時序崩潰」。5G 實體層對運算時間極度敏感，若 Windows 背景有其他吃資源的程式導致 CPU 卡頓，就會破壞 OAI 的時間軸。
-    *   **Solution**: 關閉 Windows 背景不必要的大型軟體 (如多個瀏覽器分頁、防毒掃描)，釋放 CPU 資源後重新啟動 gNB 與 nrUE 即可。
-
-*   **Issue 4: 啟動核心網時，UPF 容器不斷重啟 (Exit Code 1)**
-    *   **Root Cause**: OAI `develop` 分支已全面將 UPF 的設定檔格式從傳統的 `.conf` 升級為 `.yaml`。若套用舊版的 `docker-compose.yaml`，容器會因找不到正確的設定檔路徑而崩潰。
-    *   **Solution**: 檢查 `docker-compose.yaml` 中 `oai-upf` 的 `volumes` 掛載設定，確保將設定檔路徑掛載至 `/openair-upf/etc/config.yaml` 而非舊版的 `upf.conf`。
-
-*   **Issue 5: UE 成功取得 IP，但 Ping 10.0.0.1 呈現 100% Packet Loss**
-    *   **Root Cause**: 這是一個常見的假警報。`10.0.0.1` 是 UPF 內部的虛擬閘道器 IP，基於安全與路由規則，OAI UPF 預設會無視 (Drop) 直接打給它自己的 ICMP Ping 封包。
-    *   **Solution**: 不要 Ping UPF 內部 IP。而是進行「穿透測試」，直接 Ping 外部資料網路的伺服器 (如 `192.168.70.135` 或 `8.8.8.8`)，才能真實反映 5G 隧道的連通性。
-
-*   **Issue 6: UE 成功連線並取得 IP，卻在最後一秒顯示 [CONFIG] unknown option: --sa 並閃退**
-    *   **Root Cause**: OAI 參數解析器的順序與版本相容性問題。在某些 `develop` 版本的 Commit 中，若參數放置順序不當，解析器會在連線完成後的檢查階段判定該參數為未知選項並強制中斷軟體。
-    *   **Solution**: 確保 `--sa` 參數緊接在 `-O .../ue.conf` 之後，並嚴格遵循本手冊第 6.2 節提供的指令參數順序執行。
+| Issue 現象 | Root Cause (根本原因) | Solution (解決方案) |
+| :--- | :--- | :--- |
+| **gNB 啟動閃退**<br>`Assertion (b->th.nbAnt != 0) failed!` | UE 未使用 `ue.conf` 初始化天線，或指令漏打 `--sa` 參數。 | 完整複製 6.2 節的 nrUE 啟動指令，確保 `-O .../ue.conf` 與 `--sa` 同時存在。 |
+| **UE 無法取得 IP**<br>`Registration reject` | UE 嘗試使用的 IMSI 不存在於核心網資料庫。 | 於 UE 啟動指令尾端加入 `--uicc0.imsi 001010000000001` 覆寫預設號碼。 |
+| **UE 運行中斷線**<br>`Gap in writing to USRP`<br>`errno(14)` | WSL2 資源排程導致 CPU 卡頓，破壞了 5G 實體層極度敏感的時間軸。 | 關閉 Windows 背景吃資源的大型軟體 (如瀏覽器、防毒)，釋放 CPU 後重跑。 |
+| **UPF 容器狂重啟**<br>`Exit Code 1` | `develop` 分支的 UPF 已改用 YAML，若套用舊版 `.conf` 會無法啟動。 | 檢查 `docker-compose.yaml`，確保 UPF 掛載路徑為 `/openair-upf/etc/config.yaml`。 |
+| **Ping `10.0.0.1` 失敗**<br>`100% Packet Loss` | OAI UPF 安全規則預設無視 (Drop) 打給自己的 ICMP 封包 (此為假警報)。 | 改為「穿透測試」，直接 Ping 外部伺服器 (如 `192.168.70.135`)。 |
+| **UE 最後一秒閃退**<br>`[CONFIG] unknown option: --sa` | 參數放置順序不當，觸發 OAI 參數解析器的 Bug。 | 確保 `--sa` 參數緊接在 `-O .../ue.conf` 之後執行。 |
 
 
 ## 8. 參考文獻 (References)
