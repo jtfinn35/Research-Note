@@ -14,8 +14,8 @@
 **Total Time Spent:** ~12.5 Hours
 
 **【 2026-04-27 】 OAI Official Tutorial Deployment & Initial Testing (約 3 小時)**
-* 依照 OAI 官方教學文檔，完整進行 5G 核心網與基站/終端的基礎編譯與安裝。
-* **測試結果與瓶頸**：僅能成功建立終端設備 (UE) 與基地台 (gNB) 之間的底層連線，但無法順利生成虛擬網卡 (oaitun_ue1)，導致無法進行後續的 IP 配發與資料平面 (Data Plane) 測試。
+* Performed the basic compilation and installation of the 5G Core Network, gNB, and UE according to the official OAI tutorial.
+* **Results & Bottlenecks: Successfully established the underlying connection between the UE and gNB, but failed to generate the virtual network interface (oaitun_ue1). Consequently, subsequent IP allocation and Data Plane testing could not be executed.
 
 **【 2026-04-30 】 First Phase Debugging & Command Adjustment (約 3 小時)**
 * 針對虛擬網卡與 IP 分配失敗之問題進行首次除錯。
