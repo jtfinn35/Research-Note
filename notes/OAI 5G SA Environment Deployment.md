@@ -25,33 +25,32 @@
 ### 1. Executive Summary
 This document aims to provide a standardized installation and testing procedure for the OpenAirInterface (OAI) 5G Standalone (SA) mode. It covers the deployment of the OAI Core Network (CN5G) and Radio Access Network (RAN) within a WSL2 environment, utilizing the RF Simulator to achieve an End-to-End (E2E) simulated connection between the Base Station (gNB) and the User Equipment (UE). This establishes a foundational testing platform for the subsequent implementation of PRACH attack and mitigation algorithms.
 
-### 2. 系統架構與網路拓樸 (Architecture & Topology)
-本環境採純軟體模擬，包含以下三個主要節點，所有連線皆於本機 (Localhost/127.0.0.1) 內網進行：
-*   **OAI-CN5G (5G Core Network)**：透過 Docker Compose 部署，包含 AMF, SMF, UPF, NRF 等核心網路功能 (NFs)。
-*   **OAI gNB (基地台)**：透過 OAI RAN 原始碼編譯，啟用 `nr-softmodem` 並使用 RF Simulator 取代實體 USRP 硬體介面。
-*   **OAI nrUE (終端設備)**：透過 OAI RAN 原始碼編譯，啟用 `nr-uesoftmodem` 模擬 5G SA 終端設備，建立 `oaitun_ue1` 虛擬網卡與核心網進行資料傳輸。
+### 2. Architecture and Topology
+This environment utilizes a pure software simulation consisting of the following three main nodes. All connections are established internally via Localhost (127.0.0.1):
 
-### 3. 測試環境與前置準備 (Prerequisites)
+*   **OAI-CN5G (5G Core Network)**: Deployed via Docker Compose, comprising essential Network Functions (NFs) such as AMF, SMF, UPF, and NRF.
+*   **OAI gNB (Base Station)**: Compiled from the OAI RAN source code. It runs the `nr-softmodem` executable and utilizes the RF Simulator to replace physical USRP hardware interfaces.
+*   **OAI nrUE (User Equipment)**: Compiled from the OAI RAN source code. It runs the `nr-uesoftmodem` executable to simulate a 5G SA terminal, establishing the `oaitun_ue1` virtual network interface for data transmission with the core network.
 
-為確保 OAI 系統編譯與執行之穩定性，避免大型 C++ 專案平行編譯時發生 OOM (Out of Memory) 崩潰，本專案針對 Host 硬體進行了環境調優：
+### 3. Prerequisites
+To ensure the stability of the OAI system during compilation and execution, and to prevent Out of Memory (OOM) crashes during the parallel compilation of massive C++ projects, the environment of the host machine has been specifically tuned:
 
-*   **實體硬體 (Host Machine)**：Acer Predator PHN16-72 (32GB RAM, 32 Logical Cores)
-*   **虛擬化環境**：Windows Subsystem for Linux (WSL2) v2.6.3
-    *   效能調優策略：由於 WSL2 預設會將記憶體限制為實體 RAM 的 50% (16GB)。若貿然執行 `make -j $(nproc)` (32 執行緒平行編譯)，極易耗盡記憶體導致程序被強制終止 (Killed)。因此已透過 Windows 端 `%userprofile%\.wslconfig` 重新分配資源：
+*   **Host Machine**: Acer Predator PHN16-72 (32GB RAM, 32 Logical Cores).
+*   **Virtualization Environment**: Windows Subsystem for Linux (WSL2) v2.6.3.
+    *   **Performance Tuning Strategy**: By default, WSL2 restricts memory allocation to 50% of the physical RAM (16GB). Executing `make -j $(nproc)` (32-thread parallel compilation) under these conditions easily exhausts available memory, resulting in killed processes. Therefore, resources were explicitly reallocated via the Windows `%userprofile%\.wslconfig` file:
         ```ini
         [wsl2]
         memory=24GB
         processors=24
         swap=8GB
         ```
-*   **作業系統**：Ubuntu 22.04 LTS (Kernel 6.6.87)
-*   **容器化配置調優 (Docker Compose)**：
-    *   由於 OAI 官方提供的 `docker-compose.yaml` 預設時區為法國巴黎 (`TZ=Europe/Paris`)。為確保後續 6G/NTN 排程延遲 (Scheduling Latency) 實驗的 Log 時間戳記與本機環境一致，已將核心網所有 NFs (如 MySQL, AMF, SMF 等) 的環境變數修改為台灣標準時間：
-        
-```yaml
-environment:
-   - TZ=Asia/Taipei
-```
+*   **Operating System**: Ubuntu 22.04 LTS (Kernel 6.6.87).
+*   **Containerization Configuration (Docker Compose)**:
+    *   The default timezone in the official OAI `docker-compose.yaml` is set to Paris (`TZ=Europe/Paris`). To ensure that the log timestamps align with the local environment for subsequent 6G/NTN Scheduling Latency experiments, the environment variables for all core NFs (e.g., MySQL, AMF, SMF) were modified to Taiwan Standard Time:
+        ```yaml
+        environment:
+           - TZ=Asia/Taipei
+        ```
 
 ---
 
