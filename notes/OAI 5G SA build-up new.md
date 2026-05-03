@@ -156,7 +156,7 @@ sudo ./nr-uesoftmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf -
 > 手機端完整之信令流程，涵蓋從實體層同步至 NAS 層註冊完成。
 
 ### 6.3 資料平面 (Data Plane) Ping 測試
-連線建立後，確認虛擬網卡 `oaitun_ue1` 是否能連至外部網路。
+在 5G 控制平面成功配發 IP 後，接著須驗證資料平面 (Data Plane) 的端到端 (End-to-End) 連通性。本節將透過指定 UE 的虛擬網卡 oaitun_ue1，測試封包是否能順利穿越 5G 核心網 (UPF)，並成功抵達外部資料網路 (oai-ext-dn，IP: 192.168.70.135)。
 ```bash
 
 # 基礎連通性測試
@@ -172,14 +172,14 @@ ping -c 100 -I oaitun_ue1 192.168.70.135
 > <img width="1198" height="291" alt="image" src="https://github.com/user-attachments/assets/e5d1d4b6-8544-406d-a7f0-4aa802a018c9" />
 >
 > <br> 
-> 
+> 此步驟為初步的連通性驗證 (Hello World 測試)。測試結果顯示 4 個 ICMP 封包皆成功循原路回傳，封包遺失率 (Packet Loss) 為 0%，且平均往返延遲 (avg RTT) 約為 10.1 ms。這證明 UE、gNB 與 5G 核心網之間的 GTP-U 隧道已成功建立，且無遭受路由阻擋。
 
 #### 6.3.2 穩定度與基準測試
 
 ><img width="1195" height="802" alt="image" src="https://github.com/user-attachments/assets/bf1c3c69-019b-4dff-8756-fae7df84161c" />
 >
 > <br>
->
+>為確保後續 MAC 層排程 (如 UORA 與 BSR 機制) 延遲分析的準確性，此步驟針對環境進行壓力與穩定度基準測試 (Baseline Test)。觀察連續封包的回傳數據，平均延遲穩定維持在 9.6 ms 左右，且代表網路抖動 (Jitter) 的 mdev 數值極低，僅約 1.8 ms。0% 的遺失率與極低的抖動，證實此 OAI WSL2 虛擬環境在長時間運行下具備高度的可靠性與時序穩定性。
 
 ---
 
