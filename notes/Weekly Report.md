@@ -12,7 +12,7 @@
 
 ## 📅 Log History
 
-### [Week of 2026-05-03]
+### [Week of 2026-04-27 ~ 2026-05-03]
 
 **Total Time Spent:** ~12.5 Hours
 
