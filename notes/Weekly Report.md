@@ -2,7 +2,7 @@
 
 * **[Literature Review] 5G/6G Random Access Channel Attack, Detection, and Mitigation**
   * **Status:** IN PROGRESS
-  * **Objective:** 詳閱由鄭瑞光教授與陳奕全 (Richard) 學長共同發表的論文，深入探討 RACH 攻擊模式與防禦機制，為後續實作建立理論基礎。
+  * **Objective:** 深入研讀此篇論文，逐步拆解 RACH 攻擊與防禦機制的數學分析框架。現階段重點聚焦於解析攻擊發起時的**關鍵變因（如 Preamble 碰撞機率、系統資源耗損率）**，以及偵測模型中的**核心參數設定（如偵測門檻值 Threshold、誤判率 False Alarm Rate）**，為後續於 OAI 環境導入防禦實作建立量化的理論基礎。
 
 * **[Environment Setup] OAI 5G SA End-to-End Connection Testing**
   * **Status:** COMPLETED
