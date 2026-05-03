@@ -2,7 +2,7 @@
 
 * **[Literature Review] 5G/6G Random Access Channel Attack, Detection, and Mitigation**
   * **Status:** IN PROGRESS
-  * **Objective:** 深入研讀此篇論文，逐步拆解 RACH 攻擊與防禦機制的數學分析框架。現階段重點聚焦於解析攻擊發起時的**關鍵變因（如 Preamble 碰撞機率、系統資源耗損率）**，以及偵測模型中的**核心參數設定（如偵測門檻值 Threshold、誤判率 False Alarm Rate）**，為後續於 OAI 環境導入防禦實作建立量化的理論基礎。
+  * **Objective:** Conduct an in-depth study of this paper to systematically break down the mathematical analytical framework of RACH attack and mitigation mechanisms. The current phase will be focusing on analyzing key variables during attack initiation (e.g., Preamble Collision Probability, System Resource Depletion Rate) and core parameter settings in the detection model (e.g., Detection Threshold, False Alarm Rate). This establishes a quantitative theoretical foundation for implementing defense mechanisms in the OAI environment.
 
 * **[Environment Setup] OAI 5G SA End-to-End Connection Testing**
   * **Status:** COMPLETED
