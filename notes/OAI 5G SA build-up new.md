@@ -159,13 +159,27 @@ sudo ./nr-uesoftmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf -
 連線建立後，確認虛擬網卡 `oaitun_ue1` 是否能連至外部網路。
 ```bash
 
-# Ping 穿透測試
+# 基礎連通性測試
 ping -c 4 -I oaitun_ue1 192.168.70.135
+
+# 穩定度與基準測試
+ping -c 100 -I oaitun_ue1 192.168.70.135
 ```
 **預期結果 (Expected Output)**：
-> ```text
-> [請在此貼上你 ping 8.8.8.8 成功收到封包回覆的 Log 截圖]
-> ```
+
+#### 6.3.1 基礎連通性測試
+
+> <img width="1198" height="291" alt="image" src="https://github.com/user-attachments/assets/e5d1d4b6-8544-406d-a7f0-4aa802a018c9" />
+>
+> <br> 
+> 
+
+#### 6.3.2 穩定度與基準測試
+
+><img width="1195" height="802" alt="image" src="https://github.com/user-attachments/assets/bf1c3c69-019b-4dff-8756-fae7df84161c" />
+>
+> <br>
+>
 
 ---
 
