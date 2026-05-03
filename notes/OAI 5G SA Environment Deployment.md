@@ -71,7 +71,7 @@ sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-### 4.2 取得 OAI 5G 核心網 (CN5G) 設定檔
+### 4.2 Obtain OAI 5G Core Network (CN5G) Configuration Files
 ```bash
 wget -O ~/oai-cn5g.zip [https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g](https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g)
 unzip ~/oai-cn5g.zip
@@ -79,8 +79,8 @@ mv ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_res
 rm -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zip
 ```
 
-### 4.3 安裝 UHD 驅動 (OAI 編譯相依套件)
-雖然使用 RF Simulator，但編譯仍相依 UHD 函式庫，需採外部編譯 (Out-of-source build) 保持原始碼目錄乾淨：
+### 4.3 Install UHD Driver (OAI Compilation Dependency)
+Although the RF Simulator is used, the compilation process still depends on the UHD library. An out-of-source build is employed to keep the source directory clean:
 ```bash
 sudo apt install -y autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml
 
@@ -94,19 +94,19 @@ sudo ldconfig
 sudo uhd_images_downloader
 ```
 
-### 4.4 編譯 OAI 基地台 (gNB) 與手機端 (nrUE)
+### 4.4 Compile OAI Base Station (gNB) and User Equipment (nrUE)
 ```bash
-# 1. 取得原始碼並切換至 develop 分支
-git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g
+# 1. Clone the repository and switch to the develop branch
+git clone [https://gitlab.eurecom.fr/oai/openairinterface5g.git](https://gitlab.eurecom.fr/oai/openairinterface5g.git) ~/openairinterface5g
 cd ~/openairinterface5g
 git checkout develop
 
-# 2. 安裝自動建置腳本所需的相依套件
+# 2. Install dependencies required for the automated build script
 cd ~/openairinterface5g/cmake_targets
 ./build_oai -I
 sudo apt install -y libforms-dev libforms-bin
 
-# 3. 執行平行編譯 (包含 gNB, nrUE 與 RF Simulator)
+# 3. Execute parallel compilation (including gNB, nrUE, and RF Simulator)
 ./build_oai -w USRP --ninja --nrUE --gNB --build-lib "nrscope" -C
 ```
 
