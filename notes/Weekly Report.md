@@ -13,7 +13,7 @@
 
 **Total Time Spent:** ~12.5 Hours
 
-**【 2026-04-27 】 OAI Official Tutorial Deployment & Initial Testing (約 3 小時)**
+**【 2026-04-27 】 OAI Official Tutorial Deployment & Initial Testing (3 hours)**
 * Performed the basic compilation and installation of the 5G Core Network, gNB, and UE according to the official OAI tutorial.
 * **Results & Bottlenecks: Successfully established the underlying connection between the UE and gNB, but failed to generate the virtual network interface (oaitun_ue1). Consequently, subsequent IP allocation and Data Plane testing could not be executed.
 
