@@ -137,7 +137,7 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 **啟動 nrUE (Window 2)**：
 ```bash
 cd ~/openairinterface5g/cmake_targets/ran_build/build
-sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --rfsim --rfsimulator.serveraddr 127.0.0.1 --uicc0.imsi 001010000000001 --uicc0.nssai_sst 1 --uicc0.dnn oai
+sudo ./nr-uesoftmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf --sa -r 106 --numerology 1 --band 78 -C 3619200000 --ssb 516 --rfsim --rfsimulator.serveraddr 127.0.0.1 --uicc0.imsi 001010000000001
 ```
 **預期結果 (Expected Output)**：
 
@@ -158,11 +158,9 @@ sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --rfsim --rf
 ### 6.3 資料平面 (Data Plane) Ping 測試
 連線建立後，確認虛擬網卡 `oaitun_ue1` 是否能連至外部網路。
 ```bash
-# 確認網卡 IP
-ip addr | grep oaitun
 
-# Ping 測試
-ping -I oaitun_ue1 8.8.8.8
+# Ping 穿透測試
+ping -c 4 -I oaitun_ue1 192.168.70.135
 ```
 **預期結果 (Expected Output)**：
 > ```text
