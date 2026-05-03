@@ -1,7 +1,7 @@
 # Daily Plan & Logs
 
 **Name**: 黃仁廷 (JTFinn)
-**Student ID**: <填入學號>
+**Student ID**: B11302001
 **Enrollment**:
 - Program: B.S.
 - Year: Spring 2026
