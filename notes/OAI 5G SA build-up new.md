@@ -43,8 +43,8 @@
     *   由於 OAI 官方提供的 `docker-compose.yaml` 預設時區為法國巴黎 (`TZ=Europe/Paris`)。為確保後續 6G/NTN 排程延遲 (Scheduling Latency) 實驗的 Log 時間戳記與本機環境一致，已將核心網所有 NFs (如 MySQL, AMF, SMF 等) 的環境變數修改為台灣標準時間：
         
 ```yaml
-        environment:
-            - TZ=Asia/Taipei
+environment:
+   - TZ=Asia/Taipei
 ```
 
 ---
