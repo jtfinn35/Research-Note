@@ -122,7 +122,13 @@ sudo apt install -y libforms-dev libforms-bin
 ## 6. 測試與驗證 (Verification)
 此章節驗證 5G 端到端連線之各節點狀態。
 
-### 6.1 核心網路 (CN5G) 狀態檢查
+### 6.1 核心網路 (CN5G) 狀態檢查與防火牆設定
+在啟動前，為避免 WSL2 的本機防火牆阻擋 GTP-U 轉發封包，請先執行以下指令開放轉發權限：
+```bash
+sudo iptables -P FORWARD ACCEPT
+```
+
+接著啟動 OAI 核心網容器：
 ```bash
 cd ~/oai-cn5g
 docker compose pull
@@ -190,9 +196,17 @@ ping -c 100 -I oaitun_ue1 192.168.70.135
 
 ## 7. 常見問題與排除 (Troubleshooting)
 
-*   **Issue 1: 啟動 UE 時無法與核心網連線 / RRC 逾時**
-    *   **Root Cause**: 啟動 `nr-uesoftmodem` 時未指定網路架構模式，導致系統可能預設尋找 NSA 環境之 4G eNB。
-    *   **Solution**: 必須於啟動指令最後方明確加入 `--SA` 參數，強制設備以 5G Standalone 模式運作。
+*   **Issue 1: 基地台 (gNB) 出現 `Assertion (b->th.nbAnt != 0) failed!` 並閃退**
+    *   **Root Cause**: 手機端 (UE) 啟動指令不完整，未使用 `ue.conf` 設定檔或遺漏 `--sa` 參數，導致實體層天線數量未能正確初始化，發送了錯誤的配置給基地台。
+    *   **Solution**: 請完全複製 6.2 節的 nrUE 啟動指令，確保 `-O .../ue.conf` 與 `--sa` 參數同時存在。
+
+*   **Issue 2: 手機端 (nrUE) 顯示 `Registration reject` 或無法取得 IP**
+    *   **Root Cause**: UE 嘗試使用的 IMSI 號碼不存在於核心網的 MySQL 資料庫中。
+    *   **Solution**: 於啟動 nrUE 時，在指令列尾端加入 `--uicc0.imsi 001010000000001` 強制覆寫設定檔內的假號碼。
+
+*   **Issue 3: UE 運行中突然出現 `Gap in writing to USRP` 與 `errno(14)` 並斷線**
+    *   **Root Cause**: 這是 WSL2 虛擬環境特有的「CPU 資源時序崩潰」。5G 實體層對運算時間極度敏感，若 Windows 背景有其他吃資源的程式導致 CPU 卡頓，就會破壞 OAI 的時間軸。
+    *   **Solution**: 關閉 Windows 背景不必要的大型軟體 (如多個瀏覽器分頁、防毒掃描)，釋放 CPU 資源後重新啟動 gNB 與 nrUE 即可。
 
 ## 8. 參考文獻 (References)
 *   [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
