@@ -1,29 +1,29 @@
-# OAI 5G SA (Standalone) 網路環境建置與測試手冊
+# OAI 5G SA (Standalone) Deployment and Testing Manual
 
 ![Version](https://img.shields.io/badge/version-v1.0-blue.svg)
 ![Status](https://img.shields.io/badge/status-verified-brightgreen.svg)
 ![OS](https://img.shields.io/badge/OS-Ubuntu_22.04-orange.svg)
 
-> **作者**: 黃仁廷 (JTFinn)
-> **建立日期**: 2026-05-03
+> **Author**: 黃仁廷 (JTFinn)
+> **Date Created**: 2026-05-03
 
-> ⚠️ **Note / 注意事項**
-> 本手冊所有測試皆基於 OAI `develop` 分支。由於開源專案更新頻繁，若您在不同時間點 `git clone`，可能會遇到核心網設定檔格式 (如 YAML) 或編譯參數的差異。執行本 SOP 前，請確保您的硬體具備至少 24GB 以上的可用記憶體。
+> ⚠️ **Note**
+> All tests in this manual are based on the OAI `develop` branch. Since open-source projects are updated frequently, cloning the repository at a different time might result in discrepancies in core network configuration formats (e.g., YAML) or compilation parameters. Before executing this SOP, please ensure your hardware has at least 24GB of available RAM.
 
-### 目錄 (Table of Contents)
-1. [專案概述 (Executive Summary)](#1-專案概述-executive-summary)
-2. [系統架構與網路拓樸 (Architecture & Topology)](#2-系統架構與網路拓樸-architecture--topology)
-3. [測試環境與前置準備 (Prerequisites)](#3-測試環境與前置準備-prerequisites)
-4. [安裝與操作步驟 (Step-by-Step Guide)](#4-安裝與操作步驟-step-by-step-guide)
-5. [關鍵設定檔說明 (Configuration)](#5-關鍵設定檔說明-configuration)
-6. [測試與驗證 (Verification)](#6-測試與驗證-verification)
-7. [常見問題與排除 (Troubleshooting)](#7-常見問題與排除-troubleshooting)
-8. [參考文獻 (References)](#8-參考文獻-references)
+### Table of Contents
+1. [Executive Summary](#1-executive-summary)
+2. [Architecture and Topology](#2-architecture-and-topology)
+3. [Prerequisites](#3-prerequisites)
+4. [Step-by-Step Guide](#4-step-by-step-guide)
+5. [Configuration](#5-configuration)
+6. [Verification](#6-verification)
+7. [Troubleshooting](#7-troubleshooting)
+8. [References](#8-references)
 
 ---
 
-### 1. 專案概述 (Executive Summary)
-本文件旨在提供 OpenAirInterface (OAI) 5G Standalone (SA) 模式的標準安裝與測試流程。透過 WSL2 環境建置 OAI 核心網 (CN5G) 與無線接取網 (RAN)，並使用 RF Simulator 完成基站 (gNB) 與終端設備 (UE) 的端到端 (E2E) 模擬連線測試，為後續導入 PRACH 攻擊與防禦演算法建立基礎測試平台。
+### 1. Executive Summary
+This document aims to provide a standardized installation and testing procedure for the OpenAirInterface (OAI) 5G Standalone (SA) mode. It covers the deployment of the OAI Core Network (CN5G) and Radio Access Network (RAN) within a WSL2 environment, utilizing the RF Simulator to achieve an End-to-End (E2E) simulated connection between the Base Station (gNB) and the User Equipment (UE). This establishes a foundational testing platform for the subsequent implementation of PRACH attack and mitigation algorithms.
 
 ### 2. 系統架構與網路拓樸 (Architecture & Topology)
 本環境採純軟體模擬，包含以下三個主要節點，所有連線皆於本機 (Localhost/127.0.0.1) 內網進行：
