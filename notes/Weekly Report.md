@@ -25,7 +25,7 @@
 * 指令列強制覆寫 (`--uicc0.imsi`) UE 註冊號碼，解決 `Registration reject`。
 * 執行 Ping 穿透測試，確認平均延遲 (RTT) ~9.6ms，網路抖動 (mdev) ~1.8ms。
 
-**19:00–20:00: Technical Documentation**
+**19:00–20:00: Technical Documentation:**
 **[OAI 5G SA 網路環境建置與測試手冊](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20build-up%20new.md)** 
 
 ---
