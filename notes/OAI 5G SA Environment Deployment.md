@@ -112,109 +112,110 @@ sudo apt install -y libforms-dev libforms-bin
 
 ---
 
-## 5. 關鍵設定檔說明與修改 (Configuration)
-本環境主要基於 OAI 官方預設配置，但為了配合 WSL2 Docker 網段的路由規則，必須針對基地台 (gNB) 設定檔進行一處關鍵修改，避免回程封包被系統當作廣播封包丟棄。
+### 5. Configuration
+This environment is primarily based on the official OAI default configurations. However, to accommodate the routing rules of the WSL2 Docker subnet, a critical modification must be made to the base station (gNB) configuration file to prevent return packets from being dropped by the system as broadcast packets.
 
-*   **gNB 設定檔路徑**：`targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf`
-*   **頻段與頻寬**：Band 78, FR1, 106 PRB。
-*   **UE 參數**：使用預設 IMSI `001010000000001` 以符合 Docker 核心網中資料庫之預設註冊用戶。
+*   **gNB Configuration File Path**: `targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf`
+*   **Frequency Band and Bandwidth**: Band 78, FR1, 106 PRB.
+*   **UE Parameters**: Use the default IMSI `001010000000001` to match the default registered user in the Docker core network database.
 
-**【修改：廣播位址陷阱排除】**
-使用文字編輯器 (`nano`) 打開上述 gNB 設定檔，尋找 `NETWORK_INTERFACES` 區塊：
-將原本預設的 `192.168.70.191` (此為 /26 網段之廣播位址) **修改為合法的 Host IP，例如 `192.168.70.129`**。
-若未修改，雖能成功建線，但資料平面 (Ping) 將出現 100% 遺失。
+**[Modification: Avoiding the Broadcast Address Trap]**
+Open the aforementioned gNB configuration file using a text editor (`nano`) and locate the `NETWORK_INTERFACES` section:
+Change the default `192.168.70.191` (which is the broadcast address for the `/26` subnet) **to a valid Host IP, such as `192.168.70.129`**.
+If this modification is not made, the connection will successfully establish, but the Data Plane (Ping testing) will experience 100% packet loss.
 
 ---
 
-## 6. 測試與驗證 (Verification)
-此章節驗證 5G 端到端連線之各節點狀態。
+### 6. Verification
+This section verifies the status of each node within the 5G End-to-End (E2E) connection.
 
-### 6.1 核心網路 (CN5G) 狀態檢查與防火牆設定
-在啟動前，為避免 WSL2 的本機防火牆阻擋 GTP-U 轉發封包，請先執行以下指令開放轉發權限：
+#### 6.1 Core Network (CN5G) Status Check and Firewall Configuration
+Before starting, to prevent the local WSL2 firewall from blocking GTP-U forwarding packets, execute the following command to grant forwarding permissions:
 ```bash
 sudo iptables -P FORWARD ACCEPT
 ```
 
-接著啟動 OAI 核心網容器：
+Next, start the OAI core network containers:
 ```bash
 cd ~/oai-cn5g
 docker compose pull
 docker compose up -d
 docker ps
 ```
-**預期結果 (Expected Output)**：
+**Expected Output**：
 <img width="1807" height="516" alt="螢幕擷取畫面 2026-05-03 003342" src="https://github.com/user-attachments/assets/2bdeb6ad-36e6-4d11-9583-101ab6c4aedb" />
 
-### 6.2 啟動基站 (gNB) 與終端 (nrUE) 連線
-**啟動 gNB (Window 1)**：
+#### 6.2 Starting gNB and nrUE Connection
+
+**Start gNB (Window 1)**:
 ```bash
 cd ~/openairinterface5g/cmake_targets/ran_build/build
 sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 --rfsim --rfsimulator.[0].serveraddr server
 ```
 
-**啟動 nrUE (Window 2)**：
+Start nrUE (Window 2):
 ```bash
 cd ~/openairinterface5g/cmake_targets/ran_build/build
 sudo ./nr-uesoftmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf --sa -r 106 --numerology 1 --band 78 -C 3619200000 --ssb 516 --rfsim --rfsimulator.serveraddr 127.0.0.1 --uicc0.imsi 001010000000001
 ```
-**預期結果 (Expected Output)**：
+**Expected Output**：
 
-#### 6.2.1 gNB 基站端連線確認
+#### 6.2.1 gNB Connection Confirmation
 
 > <img width="898" height="59" alt="image" src="https://github.com/user-attachments/assets/4629739f-117f-453f-ad29-7117171fcc8d" />
 >
 > <br>
-> 基地台端成功分配 RNTI 並完成 RRC 連線建立。
+> The base station successfully allocated the RNTI and established the RRC connection.
 
-#### 6.2.2 nrUE 終端端連線程序
+#### 6.2.2 nrUE Signaling Procedure
 
 > <img width="1306" height="1205" alt="image" src="https://github.com/user-attachments/assets/beefdc4c-508a-4257-8faa-7dea86b90a68" />
 >
 > <br>
-> 手機端完整之信令流程，涵蓋從實體層同步至 NAS 層註冊完成。
+> Complete signaling flow on the UE side, covering physical layer synchronization through to NAS layer registration completion.
 
-### 6.3 資料平面 (Data Plane) Ping 測試
-在 5G 控制平面成功配發 IP 後，接著須驗證資料平面 (Data Plane) 的端到端 (End-to-End) 連通性。本節將透過指定 UE 的虛擬網卡 oaitun_ue1，測試封包是否能順利穿越 5G 核心網 (UPF)，並成功抵達外部資料網路 (oai-ext-dn，IP: 192.168.70.135)。
+#### 6.3 Data Plane Ping Testing
+After successful IP allocation in the 5G Control Plane, the End-to-End (E2E) connectivity of the Data Plane must be verified. This section tests whether packets can successfully traverse the 5G Core Network (UPF) and reach the external data network (oai-ext-dn, IP: 192.168.70.135) via the UE's virtual interface `oaitun_ue1`.
+
 ```bash
-
-# 基礎連通性測試
+# Basic connectivity test
 ping -c 4 -I oaitun_ue1 192.168.70.135
 
-# 穩定度與基準測試
+# Stability and baseline benchmarking
 ping -c 100 -I oaitun_ue1 192.168.70.135
 ```
-**預期結果 (Expected Output)**：
 
-#### 6.3.1 基礎連通性測試
+**Expected Output**：
+
+#### 6.3.1 Basic connectivity test
 
 > <img width="1198" height="291" alt="image" src="https://github.com/user-attachments/assets/e5d1d4b6-8544-406d-a7f0-4aa802a018c9" />
 >
 > <br> 
-> 此步驟為初步的連通性驗證 (Hello World 測試)。測試結果顯示 4 個 ICMP 封包皆成功循原路回傳，封包遺失率 (Packet Loss) 為 0%，且平均往返延遲 (avg RTT) 約為 10.1 ms。這證明 UE、gNB 與 5G 核心網之間的 GTP-U 隧道已成功建立，且無遭受路由阻擋。
+> This step serves as the initial connectivity validation ("Hello World" test). The results show that all 4 ICMP packets were successfully returned with 0% packet loss and an average round-trip time (avg RTT) of approximately 10.1 ms. This confirms that the GTP-U tunnel between the UE, gNB, and 5G Core has been successfully established without routing obstructions.
 
-#### 6.3.2 穩定度與基準測試
+#### 6.3.2 Stability and baseline benchmarking
 
 ><img width="1195" height="802" alt="image" src="https://github.com/user-attachments/assets/bf1c3c69-019b-4dff-8756-fae7df84161c" />
 >
 > <br>
->為確保後續 MAC 層排程 (如 UORA 與 BSR 機制) 延遲分析的準確性，此步驟針對環境進行壓力與穩定度基準測試 (Baseline Test)。觀察連續封包的回傳數據，平均延遲穩定維持在 9.6 ms 左右，且代表網路抖動 (Jitter) 的 mdev 數值極低，僅約 1.8 ms。0% 的遺失率與極低的抖動，證實此 OAI WSL2 虛擬環境在長時間運行下具備高度的可靠性與時序穩定性。
+> To ensure the accuracy of subsequent MAC layer scheduling analysis (such as UORA and BSR mechanisms), this step performs a stress and stability baseline test. Observing the continuous packet transmission data, the average latency remains stable at around 9.6 ms, with extremely low network jitter (mdev ~1.8 ms). The 0% loss rate and minimal jitter confirm that this OAI WSL2 virtual environment possesses high reliability and timing stability during prolonged operation.
 
 ---
 
-## 7. 常見問題與排除 (Troubleshooting)
+### 7. Troubleshooting
+If you encounter errors during deployment or execution, please refer to the table below for potential solutions:
 
-在建置或運行過程中若遇到報錯，請對照下表進行問題排除：
-
-| Issue 現象 | Root Cause (根本原因) | Solution (解決方案) |
+| Symptoms | Root Cause | Solution |
 | :--- | :--- | :--- |
-| **gNB 啟動閃退**<br>`Assertion (b->th.nbAnt != 0) failed!` | UE 未使用 `ue.conf` 初始化天線，或指令漏打 `--sa` 參數。 | 完整複製 6.2 節的 nrUE 啟動指令，確保 `-O .../ue.conf` 與 `--sa` 同時存在。 |
-| **UE 無法取得 IP**<br>`Registration reject` | UE 嘗試使用的 IMSI 不存在於核心網資料庫。 | 於 UE 啟動指令尾端加入 `--uicc0.imsi 001010000000001` 覆寫預設號碼。 |
-| **UE 運行中斷線**<br>`Gap in writing to USRP`<br>`errno(14)` | WSL2 資源排程導致 CPU 卡頓，破壞了 5G 實體層極度敏感的時間軸。 | 關閉 Windows 背景吃資源的大型軟體 (如瀏覽器、防毒)，釋放 CPU 後重跑。 |
-| **UPF 容器狂重啟**<br>`Exit Code 1` | `develop` 分支的 UPF 已改用 YAML，若套用舊版 `.conf` 會無法啟動。 | 檢查 `docker-compose.yaml`，確保 UPF 掛載路徑為 `/openair-upf/etc/config.yaml`。 |
-| **Ping `10.0.0.1` 失敗**<br>`100% Packet Loss` | OAI UPF 安全規則預設無視 (Drop) 打給自己的 ICMP 封包 (此為假警報)。 | 改為「穿透測試」，直接 Ping 外部伺服器 (如 `192.168.70.135`)。 |
-| **UE 最後一秒閃退**<br>`[CONFIG] unknown option: --sa` | 參數放置順序不當，觸發 OAI 參數解析器的 Bug。 | 確保 `--sa` 參數緊接在 `-O .../ue.conf` 之後執行。 |
+| **gNB Crash on Startup**<br>`Assertion (b->th.nbAnt != 0) failed!` | The UE was not initialized with `ue.conf` or the `--sa` parameter was missing. | Copy the full nrUE command from Section 6.2; ensure both `-O .../ue.conf` and `--sa` are included. |
+| **UE Fails to Obtain IP**<br>`Registration reject` | The IMSI used by the UE does not exist in the Core Network database. | Append `--uicc0.imsi 001010000000001` to the UE command to override the default ID. |
+| **Connection Drop During Execution**<br>`Gap in writing to USRP`<br>`errno(14)` | WSL2 CPU scheduling jitter disrupted the timing-sensitive 5G physical layer. | Close resource-heavy background applications in Windows (e.g., browsers, antivirus) to free up CPU cycles. |
+| **UPF Container Restart Loop**<br>`Exit Code 1` | The `develop` branch UPF now uses YAML; applying an old `.conf` format causes failure. | Check `docker-compose.yaml` and ensure the UPF mount path points to `/openair-upf/etc/config.yaml`. |
+| **Ping `10.0.0.1` Failed**<br>`100% Packet Loss` | OAI UPF security rules drop ICMP packets destined for itself (False Alarm). | Perform a "Trans-network test" by pinging the external server directly (e.g., `192.168.70.135`). |
+| **UE Sudden Crash**<br>`[CONFIG] unknown option: --sa` | Improper parameter ordering triggered a bug in the OAI argument parser. | Ensure the `--sa` parameter immediately follows the `-O .../ue.conf` argument. |
 
 
-## 8. 參考文獻 (References)
-*   [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
-*   [OAI 5G SA nrUE Execution Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_nrUE.md?ref_type=heads)
+### 8. References
+* [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
+* [OAI 5G SA nrUE Execution Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_nrUE.md?ref_type=heads)
