@@ -1,4 +1,4 @@
-## 🎯 Short-term Goals
+## Short-term Goals
 
 * **[Literature Review] 5G/6G Random Access Channel Attack, Detection, and Mitigation**
   * **Status:** IN PROGRESS
@@ -9,9 +9,6 @@
   * **Objective:** 在 WSL2 環境下完成 gNB 與 UE 的 5G 資料隧道 (Data Plane) 架設，產出標準化技術文件。
 
 ---
-
-## 📅 Log History
-
 ### [Week of 2026-04-27 ~ 2026-05-03]
 
 **Total Time Spent:** ~12.5 Hours
