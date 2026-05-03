@@ -106,12 +106,17 @@ sudo apt install -y libforms-dev libforms-bin
 
 ---
 
-## 5. 關鍵設定檔說明 (Configuration)
-本環境採 OAI 官方預設配置，未對核心網與基地台參數進行客製化修改。
+## 5. 關鍵設定檔說明與修改 (Configuration)
+本環境主要基於 OAI 官方預設配置，但為了配合 WSL2 Docker 網段的路由規則，必須針對基地台 (gNB) 設定檔進行一處關鍵修改，避免回程封包被系統當作廣播封包丟棄。
+
 *   **gNB 設定檔路徑**：`targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf`
 *   **頻段與頻寬**：Band 78, FR1, 106 PRB。
 *   **UE 參數**：使用預設 IMSI `001010000000001` 以符合 Docker 核心網中資料庫之預設註冊用戶。
 
+** 修改 (廣播位址陷阱排除)：**
+使用文字編輯器 (`nano`) 打開上述 gNB 設定檔，尋找 `NETWORK_INTERFACES` 區塊：
+將原本預設的 `192.168.70.191` (此為 /26 網段之廣播位址) **修改為合法的 Host IP，例如 `192.168.70.129`**。
+若未修改，雖能成功建線，但資料平面 (Ping) 將出現 100% 遺失。
 ---
 
 ## 6. 測試與驗證 (Verification)
