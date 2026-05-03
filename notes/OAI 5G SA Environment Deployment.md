@@ -22,17 +22,17 @@
 
 ---
 
-### 1. Executive Summary
+## 1. Executive Summary
 This document aims to provide a standardized installation and testing procedure for the OpenAirInterface (OAI) 5G Standalone (SA) mode. It covers the deployment of the OAI Core Network (CN5G) and Radio Access Network (RAN) within a WSL2 environment, utilizing the RF Simulator to achieve an End-to-End (E2E) simulated connection between the Base Station (gNB) and the User Equipment (UE). This establishes a foundational testing platform for the subsequent implementation of PRACH attack and mitigation algorithms.
 
-### 2. Architecture and Topology
+## 2. Architecture and Topology
 This environment utilizes a pure software simulation consisting of the following three main nodes. All connections are established internally via Localhost (127.0.0.1):
 
 *   **OAI-CN5G (5G Core Network)**: Deployed via Docker Compose, comprising essential Network Functions (NFs) such as AMF, SMF, UPF, and NRF.
 *   **OAI gNB (Base Station)**: Compiled from the OAI RAN source code. It runs the `nr-softmodem` executable and utilizes the RF Simulator to replace physical USRP hardware interfaces.
 *   **OAI nrUE (User Equipment)**: Compiled from the OAI RAN source code. It runs the `nr-uesoftmodem` executable to simulate a 5G SA terminal, establishing the `oaitun_ue1` virtual network interface for data transmission with the core network.
 
-### 3. Prerequisites
+## 3. Prerequisites
 To ensure the stability of the OAI system during compilation and execution, and to prevent Out of Memory (OOM) crashes during the parallel compilation of massive C++ projects, the environment of the host machine has been specifically tuned:
 
 *   **Host Machine**: Acer Predator PHN16-72 (32GB RAM, 32 Logical Cores).
@@ -54,7 +54,7 @@ To ensure the stability of the OAI system during compilation and execution, and 
 
 ---
 
-### 4. Step-by-Step Guide
+## 4. Step-by-Step Guide
 
 #### 4.1 Install Docker (5G Core Network Runtime Environment)
 ```bash
@@ -73,7 +73,7 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 
 ### 4.2 Obtain OAI 5G Core Network (CN5G) Configuration Files
 ```bash
-wget -O ~/oai-cn5g.zip [https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g](https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g)
+wget -O ~/oai-cn5g.zip https://gitlab.eurecom.fr/oai/openairinterface5g/-/archive/develop/openairinterface5g-develop.zip?path=doc/tutorial_resources/oai-cn5g
 unzip ~/oai-cn5g.zip
 mv ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g/doc/tutorial_resources/oai-cn5g ~/oai-cn5g
 rm -r ~/openairinterface5g-develop-doc-tutorial_resources-oai-cn5g ~/oai-cn5g.zip
@@ -84,7 +84,7 @@ Although the RF Simulator is used, the compilation process still depends on the 
 ```bash
 sudo apt install -y autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool g++ git inetutils-tools libboost-all-dev libncurses-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools python3-ruamel.yaml
 
-git clone [https://github.com/EttusResearch/uhd.git](https://github.com/EttusResearch/uhd.git) ~/uhd
+git clone https://github.com/EttusResearch/uhd.git ~/uhd
 cd ~/uhd && git checkout v4.8.0.0
 cd host && mkdir build && cd build
 cmake ../
@@ -97,7 +97,7 @@ sudo uhd_images_downloader
 ### 4.4 Compile OAI Base Station (gNB) and User Equipment (nrUE)
 ```bash
 # 1. Clone the repository and switch to the develop branch
-git clone [https://gitlab.eurecom.fr/oai/openairinterface5g.git](https://gitlab.eurecom.fr/oai/openairinterface5g.git) ~/openairinterface5g
+git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g
 cd ~/openairinterface5g
 git checkout develop
 
@@ -112,7 +112,7 @@ sudo apt install -y libforms-dev libforms-bin
 
 ---
 
-### 5. Configuration
+## 5. Configuration
 This environment is primarily based on the official OAI default configurations. However, to accommodate the routing rules of the WSL2 Docker subnet, a critical modification must be made to the base station (gNB) configuration file to prevent return packets from being dropped by the system as broadcast packets.
 
 *   **gNB Configuration File Path**: `targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf`
@@ -126,7 +126,7 @@ If this modification is not made, the connection will successfully establish, bu
 
 ---
 
-### 6. Verification
+## 6. Verification
 This section verifies the status of each node within the 5G End-to-End (E2E) connection.
 
 #### 6.1 Core Network (CN5G) Status Check and Firewall Configuration
@@ -174,7 +174,7 @@ sudo ./nr-uesoftmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/ue.conf -
 > <br>
 > Complete signaling flow on the UE side, covering physical layer synchronization through to NAS layer registration completion.
 
-#### 6.3 Data Plane Ping Testing
+### 6.3 Data Plane Ping Testing
 After successful IP allocation in the 5G Control Plane, the End-to-End (E2E) connectivity of the Data Plane must be verified. This section tests whether packets can successfully traverse the 5G Core Network (UPF) and reach the external data network (oai-ext-dn, IP: 192.168.70.135) via the UE's virtual interface `oaitun_ue1`.
 
 ```bash
@@ -203,7 +203,7 @@ ping -c 100 -I oaitun_ue1 192.168.70.135
 
 ---
 
-### 7. Troubleshooting
+## 7. Troubleshooting
 If you encounter errors during deployment or execution, please refer to the table below for potential solutions:
 
 | Symptoms | Root Cause | Solution |
@@ -216,6 +216,6 @@ If you encounter errors during deployment or execution, please refer to the tabl
 | **UE Sudden Crash**<br>`[CONFIG] unknown option: --sa` | Improper parameter ordering triggered a bug in the OAI argument parser. | Ensure the `--sa` parameter immediately follows the `-O .../ue.conf` argument. |
 
 
-### 8. References
+## 8. References
 * [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
 * [OAI 5G SA nrUE Execution Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_nrUE.md?ref_type=heads)
