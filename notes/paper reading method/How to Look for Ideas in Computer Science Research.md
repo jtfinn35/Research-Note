@@ -1,7 +1,5 @@
 # How to Look for Ideas in Computer Science Research
 
-Based on the article by **Zhiyun Qian**[cite: 7].
-
 ---
 
 ## 1. The Challenge of Finding Ideas
@@ -33,3 +31,7 @@ Execution is fundamentally different from idea generation. You must consciously 
 *   **Be curious and read broadly:** Many good ideas come from the crossovers of different fields[cite: 7].
 *   **Attend reading groups:** Ask questions. A good exercise is to debate a paper (attacker vs. defender) to see how defensible an idea is[cite: 7].
 *   **Talk to your labmates:** Create a connection, discuss papers casually, and bounce ideas off each other to get fresh perspectives when stuck[cite: 7].
+
+## 5. Reference
+
+* [How to Look for Ideas in Computer Science Research](https://medium.com/digital-diplomacy/how-to-look-for-ideas-in-computer-science-research-7a3fa6f4696f)
