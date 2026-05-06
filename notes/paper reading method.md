@@ -43,18 +43,19 @@ Instead of reading from start to finish, the paper should be read in up to three
 ### Pass 3: Deep Understanding (1–5 Hours)
 **Goal:** Virtually re-implement the paper to fully understand its innovations and hidden failings.
 
+### Pass 3: Deep Understanding (1–5 Hours)
+**Goal:** Virtually re-implement the paper to fully understand its innovations and hidden failings.
+
 1.  **Re-create the work:** Attempt to virtually implement the paper using the same assumptions as the authors.
-2.  **Challenge assumptions:** Identify and challenge every assumption in every statement.
-    **Read Critically (Challenge Everything):** Do not assume the authors are always correct. 
+2.  **Read Critically (Challenge Everything):** Identify and challenge every assumption in every statement. Do not assume the authors are always correct. 
     *   Are they solving the *right* problem?
     *   Are their assumptions reasonable? (e.g., checking for unstated ideal conditions or ignored finite values).
     *   Is the data gathered and interpreted correctly? (e.g., checking for strict version control like specific commit hashes for reproducibility).
-    **Read Creatively (Think Forward):** It's easier to tear down than to build up.
+3.  **Read Creatively (Think Forward):** It's easier to tear down than to build up. Look for the positive potential:
     *   What are the good ideas here? Can they be generalized?
     *   Are there practical improvements to be made?
-    *   *If you were to start doing research from this paper, what would be your next step?*   
-3.  **Think about presentation:** How would *you* present these ideas differently?
-4.  **Future work:** Jot down ideas for future research based on the paper's findings.
+    *   *If you were to start doing research from this paper, what would be your next step?* (Jot down ideas for future research).
+4.  **Think about presentation:** How would *you* present these ideas differently?
 
 ---
 
