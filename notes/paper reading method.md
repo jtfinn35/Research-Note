@@ -82,4 +82,4 @@ Use the three-pass method to map out a new field efficiently:
 ## 5. Reference
 
 * [How to Read a Paper](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
-* [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
+* [How to read a research paper.](https://www.eecs.harvard.edu/~michaelm/postscripts/ReadPaper.pdf)
