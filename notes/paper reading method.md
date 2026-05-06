@@ -76,3 +76,10 @@ Use the three-pass method to map out a new field efficiently:
 | **Pass 1** | 5–10 mins | Structure, Abstract, Conclusions | General idea, "The 5 Cs" |
 | **Pass 2** | ~1 hour | Figures, Core Arguments | Grasp of content, summary |
 | **Pass 3** | 1–5 hours | Assumptions, Proofs, Details | Deep insight, identify flaws |
+
+---
+
+## 5. Reference
+
+* [How to Read a Paper](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
+* [OAI 5G Core Network Deployment Tutorial](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_OAI_CN5G.md)
