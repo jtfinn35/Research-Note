@@ -33,8 +33,10 @@ Instead of reading from start to finish, the paper should be read in up to three
 1.  **Examine visuals:** Look closely at figures, diagrams, and especially **graphs**. Check if axes are properly labeled and if error bars are present.
 2.  **Mark references:** Note relevant unread references for future background reading.
 3.  **Summarize:** You should be able to explain the main point of the paper to someone else.
+4.  **The 1-2 Sentence Summary:** Almost all good research papers try to provide an answer to a specific question. Try to succinctly describe the paper in one or two sentences to confirm you've grasped the core question and its proposed answer.
 
 *If you still don't understand after this pass, you may choose to set it aside, read background material, or move to Pass 3.*
+
 
 ---
 
@@ -43,6 +45,14 @@ Instead of reading from start to finish, the paper should be read in up to three
 
 1.  **Re-create the work:** Attempt to virtually implement the paper using the same assumptions as the authors.
 2.  **Challenge assumptions:** Identify and challenge every assumption in every statement.
+    **Read Critically (Challenge Everything):** Do not assume the authors are always correct. 
+    *   Are they solving the *right* problem?
+    *   Are their assumptions reasonable? (e.g., checking for unstated ideal conditions or ignored finite values).
+    *   Is the data gathered and interpreted correctly? (e.g., checking for strict version control like specific commit hashes for reproducibility).
+    **Read Creatively (Think Forward):** It's easier to tear down than to build up.
+    *   What are the good ideas here? Can they be generalized?
+    *   Are there practical improvements to be made?
+    *   *If you were to start doing research from this paper, what would be your next step?*   
 3.  **Think about presentation:** How would *you* present these ideas differently?
 4.  **Future work:** Jot down ideas for future research based on the paper's findings.
 
