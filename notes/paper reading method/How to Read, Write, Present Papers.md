@@ -1,7 +1,5 @@
 # How to Read, Write, Present Papers
 
-Based on the presentation by **Nitin H. Vaidya** (University of Illinois at Urbana-Champaign, 2002)[cite: 5].
-
 ---
 
 ## 1. General Caveats & Summary
@@ -44,3 +42,7 @@ Based on the presentation by **Nitin H. Vaidya** (University of Illinois at Urba
     *   Point to the screen, not the slide on the projector, and avoid blocking the screen[cite: 5].
     *   Talk slowly, especially if English is your second language or you have an accent[cite: 5]. 
     *   Practice makes perfect (or at least tolerable), especially for pacing and fitting the time limit[cite: 5].
+
+## 5. Refernce
+
+* [How to Read, Write, Present Papers](https://www.cse.ust.hk/~gchan/students/howto.pdf)
