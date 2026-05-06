@@ -79,3 +79,4 @@ Use the three-pass method to map out a new field efficiently:
 
 * [How to Read a Paper](https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf)
 * [How to read a research paper.](https://www.eecs.harvard.edu/~michaelm/postscripts/ReadPaper.pdf)
+* [What and what not to expect from your Ph.D. advisor](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7102896)
