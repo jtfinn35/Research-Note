@@ -1,9 +1,5 @@
 # How to Read a Paper
 
-Based on the article by **S. Keshav** (David R. Cheriton School of Computer Science, University of Waterloo).
-
----
-
 ## 1. Introduction
 Researchers spend a significant amount of time reading papers, yet it is a skill rarely taught. This guide outlines the **Three-Pass Method**, a practical and efficient approach to reading research papers and performing literature surveys.
 
