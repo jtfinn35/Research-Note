@@ -12,7 +12,7 @@ This paper develops an analytical recursive model to predict how Msg1 jamming at
 
 ---
 
-## 2. Pass 1: The Five Cs
+## 2. The Five Cs
 * **Category:** Experimental Security Analysis / Physical Layer Jamming.
 * **Context:** Focuses on the Random Access Channel (RACH), a critical uplink for initial network access and synchronization.
 * **Correctness:** Validated by comparing a mathematical model against real-world measurements on an OAI 5G standalone testbed.
@@ -23,7 +23,7 @@ This paper develops an analytical recursive model to predict how Msg1 jamming at
 
 ---
 
-## 3. Pass 2: Key Theoretical & Experimental Content
+## 3. Key Theoretical & Experimental Content
 
 ### A. Analytical Model (Threshold Evolution)
 The gNB updates its noise threshold ($p_{th,i}$) based on a recursive weighting of current and past power measurements:
@@ -43,7 +43,7 @@ The gNB updates its noise threshold ($p_{th,i}$) based on a recursive weighting 
 
 ---
 
-## 4. Pass 3: Critical and Creative Analysis
+## 4. Critical and Creative Analysis
 
 ### Critical Reflections
 * **Attacker Capability:** The model assumes the attacker has synchronized with the cell and read SIB1 to identify RO allocations. 
