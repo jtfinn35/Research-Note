@@ -61,3 +61,8 @@ The gNB updates its noise threshold ($p_{th,i}$) based on a recursive weighting 
 * **Background Noise ($P_{noise}$):** 17.4 dB.
 * **Attacker Power ($P_{attacker}$):** 51 dB.
 * **UE Signal Power ($P_{UE}$):** 56.4 dB.
+
+---
+
+## 6. Reference
+* [Jamming Attacks on the Random Access Channel in 5G and B5G Networks](https://arxiv.org/abs/2602.06634).
