@@ -38,7 +38,7 @@
 **Short-term Goal**: [OAI 5G SA Environment Deployment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#6-verification)
 
 **Daily Logs**:
-- `13:30–16:00`: [OAI System Compilation & Core Network Troubleshooting](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20Environment%20Deployment.md#7-troubleshooting)
+- `13:30–16:00`: [OAI System Compilation & Core Network Troubleshooting](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#7-troubleshooting)
 - `16:00–18:30`: [E2E Connection Testing & Stability Verification](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#6-verification)
 - `20:00–21:00`: [Technical Documentation Preparation](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#1-executive-summary)
 
