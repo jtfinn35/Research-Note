@@ -25,10 +25,10 @@ The paper mathematically quantifies this gNB adaptation process:
 * **The Result:** The threshold becomes so high that a legitimate UE's signal (p_UE) can no longer cross the required margin (p_th,i + delta). The legitimate UE is effectively silenced. Access probability drops to 0%.
 
 ## 4. Real-World Proof & Key Takeaways
-When we deployed this on an actual OAI 5G standalone network (Band n78, 40MHz), the results perfectly mirrored the math:
+When deploying this on an actual OAI 5G standalone network (Band n78, 40MHz), the results perfectly mirrored the math:
 1.  **Periodicity is Lethal:** A continuous attack (T_a = 1) kills the network by the 13th RACH occasion. However, if the attacker is lazy and attacks every 16 occasions (T_a = 16), the threshold decays, and normal UEs survive.
 2.  **Parameter Tuning is Not a Cure:** We tried lowering the gNB's update factor (beta) or making the detection margin (delta) more forgiving. While this buys the normal UEs a little more time, it inevitably increases false alarms from actual background noise. You cannot simply "configure" your way out of this attack.
 
 ## 5. What's Next? The Defense Challenge
-Richard's implementation successfully weaponized the OAI UE to prove the attack works. The next logical step for our lab is to build the shield.
+The implementation successfully weaponized the OAI UE to prove the attack works. The next logical step for our lab is to build the shield.
 Since tweaking simple threshold parameters fails, we need to design an **Adaptive Defense Mechanism** inside the gNB's MAC/PHY layer. The goal: create an algorithm that can identify the "fingerprint" of this multi-preamble jammer and isolate its signal before it poisons the threshold equation.
