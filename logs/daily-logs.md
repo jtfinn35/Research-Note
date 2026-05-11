@@ -30,7 +30,7 @@
 
 ## 2026-05-05
 
-**Short-term Goal**:[Paper review](https://arxiv.org/abs/2602.06634) 
+**Short-term Goal**:[Paper review](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks) 
 
 **Daily Logs**:
 - `14:00–17:00`: [First and second time read and taking notes](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#1-vulnerability-analysis-the-contention-based-nature-of-rach)
