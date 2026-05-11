@@ -5,7 +5,7 @@
 ---
 
 ## 1. The Core Vulnerability: Why Target the RACH?
-In 5G networks, before a phone (UE) can do anything, it must knock on the gNB's door using the Random Access Channel (RACH). This first knock is called **Msg1 (Preamble)**. 
+In 5G networks, before an UE can do anything, it must knock on the gNB's door using RACH. This first knock is called **Msg1 (Preamble)**. 
 The fatal flaw? Msg1 is contention-based and completely unprotected. The gNB cannot tell if a preamble comes from a legitimate user or a malicious jammer. This research asks a critical question: *What happens if an attacker exploits this open door not just by shouting, but by systematically poisoning the gNB's ability to hear?*
 
 ## 2. The Attacker's Playbook: Theory meets OAI Implementation
