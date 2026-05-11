@@ -18,12 +18,11 @@
 ### 2026/05/09
 **Short-term Goal**
 - [x] [Paper Review: 5G RACH Jamming](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
-- [x] [NVIDIA Aerial 5G SDK Deployment & Testing Guide](https://github.com/jtfinn35/Research-Note/blob/main/notes/NVIDIA%20Aerial%205G%20SDK/NVIDIA%20Aerial%205G%20SDK%20Deployment%20&%20Testing%20Guide.md#nvidia-aerial-5g-sdk-deployment--testing-guide) 
+- [ ] [NVIDIA Aerial 5G SDK Deployment & Testing Guide](https://github.com/jtfinn35/Research-Note/blob/main/notes/NVIDIA%20Aerial%205G%20SDK/NVIDIA%20Aerial%205G%20SDK%20Deployment%20&%20Testing%20Guide.md#nvidia-aerial-5g-sdk-deployment--testing-guide) 
 
 **Daily-logs**:
-- `13:00–15:00`: [Technical Report Finalization: 5G RACH Jamming Deep Dive](https://github.com/jtfinn35/Research-Note/tree/你的7碼Hash#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
-- `15:00–17:00`: [DGX SSH Connection Stability & Aerial SDK Setup Verification](https://github.com/jtfinn35/Research-Note/tree/你的7碼Hash#nvidia-aerial-5g-sdk-deployment--testing-guide)
-- Upcoming targets: 
+- `21:00–23:00`: [Technical Report Finalization: 5G RACH Jamming Deep Dive](https://github.com/jtfinn35/Research-Note/tree/你的7碼Hash#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
+- Upcoming targets: Finalize the RACH jamming technical report; Verify DGX SSH connection stability and Aerial SDK installation success.
 
 ### 2026/05/07
 **Short-term Goal**
