@@ -1,58 +1,34 @@
-# Technical Review & Implementation Report: RACH Jamming in 5G Networks
+# Note :  Jamming Attacks on the Random Access Channel in 5G and B5G Networks
 
 **Status:** In progress
 
 ---
 
-## 1. Paper Metadata & Implementation Scope
-* **Reference Paper:** Jamming Attacks on the Random Access Channel in 5G and B5G Networks
-* **Implementation Target:** OAI-based Msg1 Protocol-Aware Jammer (Richard's `multi_preamble3` branch).
-* **Keywords:** RACH Jamming, OpenAirInterface (OAI), Noise Threshold Evolution, USRP B210.
-* **Objective:** To document the theoretical foundation of Msg1 jamming and detail the specific source-code modifications required to implement a multi-preamble, multi-occasion attacker in OAI.
+## 1. The Core Vulnerability: Why Target the RACH?
+In 5G networks, before a phone (UE) can do anything, it must knock on the gNB's door using the Random Access Channel (RACH). This first knock is called **Msg1 (Preamble)**. 
+The fatal flaw? Msg1 is contention-based and completely unprotected. The gNB cannot tell if a preamble comes from a legitimate user or a malicious jammer. This research asks a critical question: *What happens if an attacker exploits this open door not just by shouting, but by systematically poisoning the gNB's ability to hear?*
 
----
+## 2. The Attacker's Playbook: Theory meets OAI Implementation
+To prove this vulnerability, our lab didn't just run math simulations; we built a weaponized UE using OpenAirInterface (OAI) and a USRP B210. Here is how the attacker breaks the system, layer by layer:
 
-## 2. Motivation and Problem Definition
-* **Background:** The Random Access Channel (RACH) is a contention-based uplink channel. Because Msg1 (Preamble) lacks integrity protection, it is highly vulnerable to Denial-of-Service (DoS) attacks.
-* **Core Contribution:** The research provides a recursive analytical model predicting how the gNB's adaptive noise threshold evolves under attack. The accompanying implementation transforms a standard OAI UE into a persistent jammer capable of exhausting gNB resources.
+* **The "Shadow Clone" Technique (PHY Layer):** Normally, a UE sends one preamble. By diving into OAI's `nr_prach.c`, the attacker was modified to generate and accumulate 3 different Zadoff-Chu sequences (M=3) on the same resource block. This artificially triples the collision probability (from 1.56% to 4.69%).
+* **Carpet Bombing the Frequencies (MAC Layer):** In `nr_ra_procedures.c`, the attacker identifies all available Frequency Domain (FD) occasions and fires its preambles across *all* of them simultaneously. There is no safe frequency left for a normal UE.
+* **Relentless Persistence (Scheduler):** A normal UE waits for a response (Msg2). Our attacker is deaf by design. By commenting out the RAR handlers in `NR_IF_Module.c` and locking the scheduler in a continuous `nrRA_GENERATE_PREAMBLE` state, it blasts the gNB every single frame without pausing.
 
----
+## 3. The Invisible Damage: Poisoning the Noise Threshold
+When the gNB is constantly hit by these fake preambles, it thinks the environment has become incredibly noisy. To adapt, the gNB raises its "Noise Threshold" (p_th,i) to filter out the noise.
 
-## 3. Theoretical Framework: Recursive Threshold Model
-The gNB updates its noise threshold (p_th,i) using a recursive weighted average of current and past power measurements:
+The paper mathematically quantifies this gNB adaptation process:
+> `p_th,i = (alpha * p_measured,i) + (beta * p_measured,i-1) + (gamma * p_th,i-1)`
 
-p_th,i = (alpha * p_measured,i) + (beta * p_measured,i-1) + (gamma * p_th,i-1)
+* **The Trap:** Because OAI updates this threshold recursively (using past memory), a persistent attacker (firing every frame, T_a = 1) forces the threshold to grow geometrically. 
+* **The Result:** The threshold becomes so high that a legitimate UE's signal (p_UE) can no longer cross the required margin (p_th,i + delta). The legitimate UE is effectively silenced. Access probability drops to 0%.
 
-* **OAI Implementation Strategy:** Uses recursive averaging where alpha = 0 and gamma = 1 - beta.
-* **Impact:** Under continuous attack, the threshold converges to a high steady-state value. This causes legitimate UEs' access attempts to fail because their signal power (p_UE) can no longer exceed the poisoned threshold plus the detection margin (p_th,i + delta).
+## 4. Real-World Proof & Key Takeaways
+When we deployed this on an actual OAI 5G standalone network (Band n78, 40MHz), the results perfectly mirrored the math:
+1.  **Periodicity is Lethal:** A continuous attack (T_a = 1) kills the network by the 13th RACH occasion. However, if the attacker is lazy and attacks every 16 occasions (T_a = 16), the threshold decays, and normal UEs survive.
+2.  **Parameter Tuning is Not a Cure:** We tried lowering the gNB's update factor (beta) or making the detection margin (delta) more forgiving. While this buys the normal UEs a little more time, it inevitably increases false alarms from actual background noise. You cannot simply "configure" your way out of this attack.
 
----
-
-## 4. Technical Implementation: The OAI Attacker
-To validate the vulnerability, the standard OAI UE was modified to act as a malicious jammer.
-* **Base Environment:** Ubuntu 24.04 LTS, UHD 4.8.0.0, USRP B210.
-* **OAI Version:** develop branch (commit `4da30019be`, `multi_preamble3` branch).
-
-### Core Source Code Modifications
-1. **Multi-Preamble Generation (PHY Layer - `nr_prach.c`):**
-   Modified the signal generation loop to accumulate 3 different Zadoff-Chu sequences (M=3) simultaneously on the same time-frequency resource.
-2. **Multi-FD-Occasions (MAC Layer - `nr_ra_procedures.c`):**
-   Stored all available Frequency Domain (FD) occasions and configured the UE to transmit across all of them simultaneously.
-3. **Continuous Transmission (MAC Scheduler - `nr_ue_scheduler.c`):**
-   Forced `is_prach_frame()` to always return true, keeping the UE permanently in the `nrRA_GENERATE_PREAMBLE` state.
-4. **Msg2 Blocking (PHY-MAC Interface - `NR_IF_Module.c`):**
-   Commented out the RAR and DLSCH handlers, ensuring the attacker ignores any gNB responses and continues jamming.
-
----
-
-## 5. Collision Probability Analysis
-By modifying the UE to transmit M=3 preambles simultaneously, the collision probability is artificially inflated:
-* **Single Preamble (Standard):** 1 / 64 = 1.56%
-* **Multi-Preamble (Attacker, M=3):** 3 / 64 = 4.69% (A 3x improvement in attack efficiency).
-* **System Impact:** In a cell with 20 legitimate UEs, the presence of this attacker drives the collision probability up to approximately 61.98%, effectively paralyzing the uplink.
-
----
-
-## 6. Strategic Insights and Future Directions
-1. **Implementation Success:** Richard's modifications successfully map the theoretical multi-preamble attack into a functional OAI testbed.
-2. **Defense Development (Next Steps):** Since simple parameter tuning (adjusting beta or delta) cannot fully mitigate the attack without increasing false alarms, future research must focus on the gNB side. We need to develop an **Adaptive Defense Mechanism** in the OAI gNB MAC/PHY layer capable of identifying and filtering out these accumulated, high-frequency malicious preambles.
+## 5. What's Next? The Defense Challenge
+Richard's implementation successfully weaponized the OAI UE to prove the attack works. The next logical step for our lab is to build the shield.
+Since tweaking simple threshold parameters fails, we need to design an **Adaptive Defense Mechanism** inside the gNB's MAC/PHY layer. The goal: create an algorithm that can identify the "fingerprint" of this multi-preamble jammer and isolate its signal before it poisons the threshold equation.
