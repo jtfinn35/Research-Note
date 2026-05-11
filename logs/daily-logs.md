@@ -22,7 +22,7 @@
 
 **Daily-logs**:
 - `21:00–23:00`: [Technical Report Finalization: 5G RACH Jamming Deep Dive](https://github.com/jtfinn35/Research-Note/tree/你的7碼Hash#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
-- Upcoming targets: Finalize the RACH jamming technical report; Verify DGX SSH connection stability and Aerial SDK installation success.
+- Upcoming targets: Verify DGX SSH connection stability and Aerial SDK installation success.
 
 ### 2026/05/07
 **Short-term Goal**
