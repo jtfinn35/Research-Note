@@ -1,19 +1,19 @@
 # Note :  Jamming Attacks on the Random Access Channel in 5G and B5G Networks
 
-**Status:** In progress
+![Status](https://img.shields.io/badge/status-verified-brightgreen.svg)
 
 ---
 
-## 1. The Core Vulnerability: Why Target the RACH?
-In 5G networks, before an UE can do anything, it must knock on the gNB's door using RACH. This first knock is called **Msg1 (Preamble)**. 
-The problem is that Msg1 is contention-based and completely unprotected. The gNB cannot tell if a preamble comes from a legitimate user or a malicious jammer. This research asks a critical question: *What happens if an attacker exploits this open door not just by shouting, but by systematically poisoning the gNB's ability to hear?*
+## 1. Vulnerability Analysis: The Contention-Based Nature of RACH
+In 5G networks, RACH serves as the primary uplink interface for UE to achieve initial synchronization and network access. The initial transmission, known as **Msg1 (Preamble)**, is entirely contention-based and lacks integrity protection. 
+Consequently, the gNB cannot differentiate between a preamble transmitted by a legitimate UE and one injected by a malicious actor. This research explores the critical system degradation that occurs when an attacker exploits this open interface not merely to cause collisions, but to systematically manipulate the gNB's adaptive noise detection mechanisms.
 
 ## 2. The Attacker's Playbook: Theory meets OAI Implementation
-To prove this vulnerability, our lab didn't just run math simulations; we built a weaponized UE using OpenAirInterface (OAI) and a USRP B210. Here is how the attacker breaks the system, layer by layer:
+This is how the attacker breaks the system layer by layer:
 
 * **PHY Layer:** Normally, a UE sends one preamble. By diving into OAI's `nr_prach.c`, the attacker was modified to generate and accumulate 3 different Zadoff-Chu sequences (M=3) on the same resource block. This artificially triples the collision probability (from 1.56% to 4.69%).
 * **Carpet Bombing the Frequencies (MAC Layer):** In `nr_ra_procedures.c`, the attacker identifies all available Frequency Domain (FD) occasions and fires its preambles across *all* of them simultaneously. There is no safe frequency left for a normal UE.
-* **Relentless Persistence (Scheduler):** A normal UE waits for a response (Msg2). Our attacker is deaf by design. By commenting out the RAR handlers in `NR_IF_Module.c` and locking the scheduler in a continuous `nrRA_GENERATE_PREAMBLE` state, it blasts the gNB every single frame without pausing.
+* **Relentless Persistence (Scheduler):** A normal UE waits for a response (Msg2). The attacker is deaf by design. By commenting out the RAR handlers in `NR_IF_Module.c` and locking the scheduler in a continuous `nrRA_GENERATE_PREAMBLE` state, it blasts the gNB every single frame without pausing.
 
 ## 3. The Invisible Damage: Poisoning the Noise Threshold
 When the gNB is constantly hit by these fake preambles, it thinks the environment has become incredibly noisy. To adapt, the gNB raises its "Noise Threshold" (p_th,i) to filter out the noise.
