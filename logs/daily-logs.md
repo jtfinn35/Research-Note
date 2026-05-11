@@ -17,7 +17,7 @@
 
 ### 2026/05/09
 **Short-term Goal**
-- [ ] 
+- [x] [Paper Review: 5G RACH Jamming & Server Environment Setup](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-
 
 **Daily-logs**:
 - Upcoming targets: 
