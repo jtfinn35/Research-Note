@@ -24,11 +24,12 @@
 
 ### 2026/05/07
 **Short-term Goal**
-- [ ] 
+- [x] [Paper Review: 5G RACH Jamming & Server Environment Setup](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md)
 
 **Daily-logs**:
-- `20:00–22:00`: [Third and fourth time read and taking notes](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
-- <Upcoming targets> 
+- `19:00–21:00`: [3rd & 4th Reading Passes: Mathematical Modeling & Parameter Trade-off Analysis](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
+- `21:00–23:00`: [NVIDIA Aerial 5G SDK Deployment & DGX Spark Node Access Provisioning]
+- <Upcoming targets> Finalize the RACH jamming technical report; Verify DGX SSH connection stability and Aerial SDK installation success.
 
 ### 2026/05/05
 **Short-term Goal**
