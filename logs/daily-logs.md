@@ -17,9 +17,21 @@
 
 ## 2026-05-09
 
+**Short-term Goal**:
+
+**Daily Logs**:
+
 ## 2026-05-07
 
+**Short-term Goal**:
+
+**Daily Logs**:
+
 ## 2026-05-05
+
+**Short-term Goal**:
+
+**Daily Logs**:
 
 ## 2026-05-03
 
