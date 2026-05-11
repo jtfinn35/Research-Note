@@ -29,7 +29,7 @@
 
 **Daily-logs**:
 - `19:00–21:00`: [3rd & 4th Reading Passes: Mathematical Modeling & Parameter Trade-off Analysis](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
-- `21:00–23:00`: [NVIDIA Aerial 5G SDK Deployment & DGX Spark Node Access Provisioning] (https://github.com/jtfinn35/Research-Note/blob/main/notes/NVIDIA%20Aerial%205G%20SDK/NVIDIA%20Aerial%205G%20SDK%20Deployment%20&%20Testing%20Guide.md#1-system-architecture--prerequisites)
+- `21:00–23:00`: [NVIDIA Aerial 5G SDK Deployment & DGX Spark Node Access Provisioning](https://github.com/jtfinn35/Research-Note/blob/main/notes/NVIDIA%20Aerial%205G%20SDK/NVIDIA%20Aerial%205G%20SDK%20Deployment%20&%20Testing%20Guide.md#1-system-architecture--prerequisites)
 - Upcoming targets: Finalize the RACH jamming technical report; Verify DGX SSH connection stability and Aerial SDK installation success.
 
 ### 2026/05/05
