@@ -14,6 +14,7 @@
 * **GPU Processor:** NVIDIA GB10
 * **Network Interface Card (NIC):** Mellanox Technologies MT2910 Family [ConnectX-7] (4 Ports)
 * **Client Environment:** Acer Predator PHN16-72 (Intel Core i9-14900HX, 32GB RAM) running Windows 11 Home via VS Code Remote-SSH (IP: 140.118.122.123).
+* [DGX Spark Node Hardware Environment Verification](https://github.com/jtfinn35/Research-Note/blob/main/photos/screenshots.md#--system-specifications)
 
 ### 1.2 Software Environment Matrix
 * **Operating System:** Ubuntu 24.04.4 LTS (Noble)
