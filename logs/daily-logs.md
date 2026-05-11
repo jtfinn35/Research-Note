@@ -32,11 +32,11 @@
 
 ### 2026/05/05
 **Short-term Goal**
-- [x] [Paper review](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
+- [x] [Paper Review: 5G RACH Jamming](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
 
 **Daily-logs**:
-- `14:00–17:00`: [First and second time read and taking notes](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#1-vulnerability-analysis-the-contention-based-nature-of-rach)
-- <Upcoming targets> 
+- `14:00–17:00`: [1st & 2nd Reading Passes: Outline, Conclusion, and Structural Notes](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#1-vulnerability-analysis-the-contention-based-nature-of-rach)
+- Upcoming targets: Conduct 3rd and 4th reading passes to deep dive into the mathematical models and analyze the system impacts of threshold parameters (alpha, beta, gamma).
 
 ### 2026/05/03
 **Short-term Goal**
@@ -46,7 +46,6 @@
 - `13:30–16:00`: [OAI System Compilation & Core Network Troubleshooting](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#7-troubleshooting)
 - `16:00–18:30`: [E2E Connection Testing & Stability Verification](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#6-verification)
 - `20:00–21:00`: [Technical Documentation Preparation](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#1-executive-summary)
-- <Upcoming targets> 
 
 ### 2026/04/30
 **Short-term Goal**
@@ -54,7 +53,6 @@
 
 **Daily-logs**:
 - `18:00–20:00`: [First Phase Debugging & Command Adjustment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#5-configuration)
-- <Upcoming targets> 
 
 ### 2026/04/27
 **Short-term Goal**
@@ -62,4 +60,3 @@
 
 **Daily-logs**:
 - `18:00–21:00`: [OAI Official Tutorial Deployment & Initial Testing](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#4-step-by-step-guide)
-- <Upcoming targets>
