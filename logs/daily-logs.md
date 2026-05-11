@@ -23,7 +23,7 @@
 
 ## 2026-05-03
 
-**Short-term Goal**: [OAI 5G SA Environment Deployment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20Environment%20Deployment.md)
+**Short-term Goal**: [OAI 5G SA Environment Deployment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#oai-5g-sa-standalone-deployment-and-testing-manual)
 
 **Daily Logs**:
 - `13:30–16:00`: [OAI System Compilation & Core Network Troubleshooting](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20Environment%20Deployment.md#7-troubleshooting)
@@ -32,7 +32,7 @@
 
 ## 2026-04-30
 
-**Short-term Goal**: [OAI 5G SA Environment Deployment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20Environment%20Deployment.md)
+**Short-term Goal**: [OAI 5G SA Environment Deployment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G/OAI%205G%20SA%20Environment%20Deployment.md#oai-5g-sa-standalone-deployment-and-testing-manual)
 
 **Daily Logs**:
 - `18:00–21:00`: [First Phase Debugging & Command Adjustment](https://github.com/jtfinn35/Research-Note/blob/main/notes/OAI%205G%20SA%20Environment%20Deployment.md#5-configuration)
