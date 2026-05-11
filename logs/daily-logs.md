@@ -18,6 +18,7 @@
 ### 2026/05/09
 **Short-term Goal**
 - [x] [Paper Review: 5G RACH Jamming](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
+- [x] [NVIDIA Aerial 5G SDK Deployment & Testing Guide](https://github.com/jtfinn35/Research-Note/blob/main/notes/NVIDIA%20Aerial%205G%20SDK/NVIDIA%20Aerial%205G%20SDK%20Deployment%20&%20Testing%20Guide.md#nvidia-aerial-5g-sdk-deployment--testing-guide) 
 
 **Daily-logs**:
 - Upcoming targets: 
