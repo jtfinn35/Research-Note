@@ -6,12 +6,12 @@
 
 ## 1. The Core Vulnerability: Why Target the RACH?
 In 5G networks, before an UE can do anything, it must knock on the gNB's door using RACH. This first knock is called **Msg1 (Preamble)**. 
-The fatal flaw? Msg1 is contention-based and completely unprotected. The gNB cannot tell if a preamble comes from a legitimate user or a malicious jammer. This research asks a critical question: *What happens if an attacker exploits this open door not just by shouting, but by systematically poisoning the gNB's ability to hear?*
+The problem is that Msg1 is contention-based and completely unprotected. The gNB cannot tell if a preamble comes from a legitimate user or a malicious jammer. This research asks a critical question: *What happens if an attacker exploits this open door not just by shouting, but by systematically poisoning the gNB's ability to hear?*
 
 ## 2. The Attacker's Playbook: Theory meets OAI Implementation
 To prove this vulnerability, our lab didn't just run math simulations; we built a weaponized UE using OpenAirInterface (OAI) and a USRP B210. Here is how the attacker breaks the system, layer by layer:
 
-* **The "Shadow Clone" Technique (PHY Layer):** Normally, a UE sends one preamble. By diving into OAI's `nr_prach.c`, the attacker was modified to generate and accumulate 3 different Zadoff-Chu sequences (M=3) on the same resource block. This artificially triples the collision probability (from 1.56% to 4.69%).
+* **TPHY Layer:** Normally, a UE sends one preamble. By diving into OAI's `nr_prach.c`, the attacker was modified to generate and accumulate 3 different Zadoff-Chu sequences (M=3) on the same resource block. This artificially triples the collision probability (from 1.56% to 4.69%).
 * **Carpet Bombing the Frequencies (MAC Layer):** In `nr_ra_procedures.c`, the attacker identifies all available Frequency Domain (FD) occasions and fires its preambles across *all* of them simultaneously. There is no safe frequency left for a normal UE.
 * **Relentless Persistence (Scheduler):** A normal UE waits for a response (Msg2). Our attacker is deaf by design. By commenting out the RAR handlers in `NR_IF_Module.c` and locking the scheduler in a continuous `nrRA_GENERATE_PREAMBLE` state, it blasts the gNB every single frame without pausing.
 
