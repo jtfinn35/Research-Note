@@ -1,9 +1,6 @@
 # Technical Review & Implementation Report: RACH Jamming in 5G Networks
 
-**Status:** Completed
-**Reviewer:** J.T. Finn
-**Research Area:** 5G/B5G Physical Layer Security
-**Lab:** Broadband Mobile Wireless Lab (BMW Lab), NTUST
+**Status:** In progress
 
 ---
 
