@@ -1,4 +1,4 @@
-# Research Note: Jamming Attacks on the Random Access Channel in 5G and B5G Networks
+# Note: Jamming Attacks on the Random Access Channel in 5G and B5G Networks
 
 **Topic:** Cybersecurity in 5G/B5G Physical Layer (RACH Jamming)  
 **Source:** Jamming Attacks on the Random Access Channel in 5G and B5G Networks
