@@ -17,14 +17,14 @@
 
 ### 2026/05/09
 **Short-term Goal**
-- [x] [Paper Review: 5G RACH Jamming & Server Environment Setup](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-
+- [x] [Paper Review: 5G RACH Jamming](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
 
 **Daily-logs**:
 - Upcoming targets: 
 
 ### 2026/05/07
 **Short-term Goal**
-- [x] [Paper Review: 5G RACH Jamming & Server Environment Setup](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md)
+- [x] [Paper Review: 5G RACH Jamming](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#note---jamming-attacks-on-the-random-access-channel-in-5g-and-b5g-networks)
 
 **Daily-logs**:
 - `19:00–21:00`: [3rd & 4th Reading Passes: Mathematical Modeling & Parameter Trade-off Analysis](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
