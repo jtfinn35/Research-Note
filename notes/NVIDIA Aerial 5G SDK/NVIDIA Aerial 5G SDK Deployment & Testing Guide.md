@@ -7,7 +7,7 @@
 ---
 
 ## 1. System Architecture & Prerequisites
-> 💡 **Note:** Aerial SDK and DPDK integrations are highly sensitive to driver and kernel version matching. The following environment matrix documents the exact state of the DGX Spark node and client environment before deployment.
+> 💡 **Note:** Aerial SDK and DPDK integrations are highly sensitive to driver, kernel version matching, and memory page sizes. The following environment matrix documents the exact state of the DGX Spark node and client environment before deployment.
 
 ### 1.1 Hardware Specifications
 * **Server Node:** NVIDIA DGX Spark Node (`spark-d957`)
@@ -17,6 +17,7 @@
 
 ### 1.2 Software Environment Matrix
 * **Operating System:** Ubuntu 24.04.4 LTS (Noble)
+* **Linux Kernel:** `6.14.0-1015-nvidia-64k` *(Note: 64KB page size kernel, critical for DPDK hugepages configuration)*
 * **NVIDIA Driver Version:** 590.48.01
 * **CUDA Version:** * Runtime API (`nvidia-smi`): 13.1
   * Compiler (`nvcc`): 13.0.88
