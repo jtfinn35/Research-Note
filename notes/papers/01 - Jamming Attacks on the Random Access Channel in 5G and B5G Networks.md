@@ -1,6 +1,6 @@
 # Note :  Jamming Attacks on the Random Access Channel in 5G and B5G Networks
 
-![Status](https://img.shields.io/badge/status-verified-brightgreen.svg)
+![Status](https://img.shields.io/badge/status-complete-brightgreen.svg)
 
 ---
 
