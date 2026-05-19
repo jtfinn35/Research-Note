@@ -24,9 +24,9 @@
 
 **Daily-logs**:
 
-- `09:00 - 10:30`: [Confirm Project Titles and Scope Overview](https://github.com/bmw-ntust-internship/internship/tree/<7-digit-hash>#project-overview)
+- `09:00 - 10:30`: [Confirm Project Titles and Scope Overview](https://github.com/jtfinn35/Research-Note/blob/ba8914b/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md#project-overview)
 - `10:30 - 11:30`: [Formulate Expected Goals and Outcomes](https://github.com/bmw-ntust-internship/internship/tree/<7-digit-hash>#expected-goals)
-- <Upcoming targets: Retrieve and run Richard's OAI Msg1 jamming code to establish an attack baseline.>
+- Upcoming targets: Retrieve and run Richard's OAI Msg1 jamming code to establish an attack baseline.>
 
 ### 2026/05/09
 **Short-term Goal**
