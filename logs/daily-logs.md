@@ -25,9 +25,9 @@
 
 **Daily-logs**:
 
-- `18:30 - 19:30`: [Detail Phase 1 & 2 Milestones (Baseline & FAPI Integration)](https://github.com/jtfinn35/Research-Note/blob/<7-digit-hash>/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/Milestones_5G_PRACH.md#phase-1-baseline-establishment-est-12-months)
-- `19:30 - 20:30`: [Detail Phase 3 & 4 Milestones (Vulnerability Assessment & Mitigation)](https://github.com/jtfinn35/Research-Note/blob/<7-digit-hash>/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/Milestones_5G_PRACH.md#phase-3-vulnerability-assessment--data-collection-est-23-months)
-- <Upcoming targets: 1. Setup GitHub Project Card with the new milestones. 2. Start Week 1 task (Provision Ubuntu 22.04 VM & compile OAI).>
+- `16:30 - 17:30`: [Detail Phase 1 & 2 Milestones (Baseline & FAPI Integration)](https://github.com/jtfinn35/Research-Note/blob/22348d14137244a531caf3cb2fa401c0d5dc82bd/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md)
+- `19:30 - 20:30`: [Detail Phase 3 & 4 Milestones (Vulnerability Assessment & Mitigation)](https://github.com/jtfinn35/Research-Note/blob/4fcde208d20d7fcef1e43dc8a5bac2e87b3d39c8/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md)
+- Upcoming targets: Start Week 1 task.
 
 ### 2026/05/20
 
@@ -39,7 +39,7 @@
 
 - `05:30 - 06:00`: [Confirm Project Titles and Scope Overview](https://github.com/jtfinn35/Research-Note/blob/d82ebc0/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md#project-overview)
 - `06:00 - 06:30`: [Formulate Expected Goals and Outcomes](https://github.com/jtfinn35/Research-Note/blob/ba8914b/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md#project-overview)
-- Upcoming targets: 1. Formulate the weekly project schedule. 2. Retrieve and run Richard's OAI Msg1 jamming code to establish an attack baseline.
+- Upcoming targets: Formulate the weekly project schedule. 
 
 ### 2026/05/09
 **Short-term Goal**
