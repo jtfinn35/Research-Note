@@ -8,6 +8,7 @@
 - Year: Spring 2026
 
 ## Table of Contents
+- [2026/05/23](#20260523)
 - [2026/05/20](#20260520)
 - [2026/05/09](#20260509)
 - [2026/05/07](#20260507)
@@ -15,6 +16,18 @@
 - [2026/05/03](#20260503)
 - [2026/04/30](#20260430)
 - [2026/04/27](#20260427)
+
+### 2026/05/23
+
+**Short-term Goal**
+
+- [x] [Complete 1-Year Project Milestones Planning](https://github.com/jtfinn35/Research-Note/blob/main/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/overview%20and%20expected%20goal.md#weekly-schedule)
+
+**Daily-logs**:
+
+- `18:30 - 19:30`: [Detail Phase 1 & 2 Milestones (Baseline & FAPI Integration)](https://github.com/jtfinn35/Research-Note/blob/<7-digit-hash>/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/Milestones_5G_PRACH.md#phase-1-baseline-establishment-est-12-months)
+- `19:30 - 20:30`: [Detail Phase 3 & 4 Milestones (Vulnerability Assessment & Mitigation)](https://github.com/jtfinn35/Research-Note/blob/<7-digit-hash>/project/Vulnerability%20Analysis%20and%20Defense%20Mechanisms%20for%205G%20PRACH%20within%20the%20NVIDIA%20Aerial%20RAN%20Architecture/Milestones_5G_PRACH.md#phase-3-vulnerability-assessment--data-collection-est-23-months)
+- <Upcoming targets: 1. Setup GitHub Project Card with the new milestones. 2. Start Week 1 task (Provision Ubuntu 22.04 VM & compile OAI).>
 
 ### 2026/05/20
 
