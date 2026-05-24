@@ -1,7 +1,7 @@
 # Milestones
 
 ## Table of Contents
-- [OAI 5G SA Environment Deployment](#oai-5g-sa-environment-deployment)
+- [OAI 5G SA Environment Deployment](#1-oai-5g-sa-environment-deployment)
 
 ---
 
