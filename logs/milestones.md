@@ -14,4 +14,4 @@
 
 ## 2. 5G/6G Random Access Channel Attack, Detection, and Mitigation: Literature Review & Analytical Framework
 - [x] [2.1 Analysis of Key Variables During Attack Initiation](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#1-vulnerability-analysis-the-contention-based-nature-of-rach)
-- [x] [2.2 Core Parameter Settings in Detection Model]([#3-poisoning-the-noise-threshold](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
+- [x] [2.2 Core Parameter Settings in Detection Model](https://github.com/jtfinn35/Research-Note/blob/main/notes/papers/01%20-%20Jamming%20Attacks%20on%20the%20Random%20Access%20Channel%20in%205G%20and%20B5G%20Networks.md#3-the-invisible-damage-poisoning-the-noise-threshold)
