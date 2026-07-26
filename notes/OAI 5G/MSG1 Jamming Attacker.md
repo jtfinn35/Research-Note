@@ -13,16 +13,22 @@
 ---
 
 ## Table of Contents
+## Table of Contents
 - [1. Executive Summary](#1-executive-summary)
 - [2. Architecture and Topology](#2-architecture-and-topology)
 - [3. Prerequisites](#3-prerequisites)
 - [4. Step-by-Step Guide](#4-step-by-step-guide)
-  - [4.1 Workspace Setup and Source Code Cloning](#41-workspace-setup-and-source-code-cloning)
-  - [4.2 Build UHD Driver from Source](#42-build-uhd-driver-from-source)
+  - [4.1 Workspace Setup and Building UHD Driver](#41-workspace-setup-and-building-uhd-driver)
+  - [4.2 Clone MSG1 Attacker and Install Dependencies](#42-clone-msg1-attacker-and-install-dependencies)
   - [4.3 Build MSG1 Attacker](#43-build-msg1-attacker)
   - [4.4 Quick Re-build (After Code Edit)](#44-quick-re-build-after-code-edit)
   - [4.5 Execute Attacker](#45-execute-attacker)
-- [5. Available Options & Parameters](#5-available-options--parameters)
+- [5. Configuration and Parameters](#5-configuration-and-parameters)
+  - [5.1 Core Execution Parameters](#51-core-execution-parameters)
+  - [5.2 Advanced Attack Options](#52-advanced-attack-options)
+- [6. Verification and Safety Guidelines](#6-verification-and-safety-guidelines)
+- [7. Troubleshooting](#7-troubleshooting)
+- [8. References](#8-references)
 
 ---
 
