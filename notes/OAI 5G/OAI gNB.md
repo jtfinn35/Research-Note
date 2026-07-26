@@ -43,9 +43,21 @@ graph TD
     O1_Adpt --- |"Telnet Commands (Port 9090)"| TelnetSrv
     O1_Adpt -->|"VES Events (O1)"| VES
     O1_Adpt <-->|"NETCONF (O1)"| NETCONF
-    ```
+```
 
----
+## 3. Prerequisites
+The compilation and execution environment remains identical to the standard OAI 5G SA deployment to ensure consistency and prevent Out of Memory (OOM) crashes during massive C++ parallel builds.
+
+*   **Host Machine**: Acer Predator PHN16-72 (32GB RAM, 32 Logical Cores).
+*   **Virtualization Environment**: Windows Subsystem for Linux (WSL2) v2.6.3.
+    *   **Performance Tuning Strategy**: The Windows `%userprofile%\.wslconfig` file is explicitly configured to allocate sufficient resources:
+        ```ini
+        [wsl2]
+        memory=24GB
+        processors=24
+        swap=8GB
+        ```
+*   **Operating System**: Ubuntu 22.04 LTS (Kernel 6.6.87).
 
 ## 4. Step-by-Step Guide
 
@@ -58,10 +70,10 @@ cd openairinterface5g/cmake_targets/
 ```
 
 ### 4.2 Clone Customized Repository and Build
-To support the O1 interface and specific alert functionalities in subsequent steps, we do not use the official main branch. Instead, clone the customized `Richard-oai-gNB` repository, switch to the specific branch, and then perform a parallel build.
+To support the O1 interface and specific alert functionalities, we do not use the official main branch. Instead, clone the customized `Richard-oai-gNB` repository, switch to the specific branch, and then perform a parallel build.
 
 ```bash
-git clone [https://github.com/bmw-ece-ntust/Richard-oai-gNB.git](https://github.com/bmw-ece-ntust/Richard-oai-gNB.git)
+git clone https://github.com/bmw-ece-ntust/Richard-oai-gNB.git
 git switch O1-telnet-alert
 cd openairinterface5g/cmake_targets/
 sudo ./build_oai --ninja -c --gNB --nrUE --build-lib telnetsrv -w USRP -C    
@@ -83,6 +95,7 @@ Navigate to the build directory and start the softmodem using the specified conf
 ```bash
 cd openairinterface5g/cmake_targets/ran_build/build
 
+# O1 telnet enable
 sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 -E --continuous-tx --log_config.PRACH_debug --telnetsrv --telnetsrv.shrmod o1
 ```
 
@@ -94,3 +107,21 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 *   `--log_config.PRACH_debug`: Enables debug logs related to PRACH (Physical Random Access Channel) for easier tracking.
 *   `--telnetsrv`: Starts the Telnet Server, allowing external tools or the O1 Adapter to connect and control the modem.
 *   `--telnetsrv.shrmod o1`: Loads the O1 shared module to officially interface with the O1 Adapter.
+
+## 5. Configuration
+No special configuration modifications are required specifically for the O1 telnet module. The system utilizes the default USRP B210 Standalone configuration file (`gnb.sa.band78.fr1.106PRB.usrpb210.conf`). 
+
+## 6. Verification
+Upon executing the startup command in Step 4.3, the `nr-softmodem` process will initialize the gNB components. You should observe the telnet server successfully loading and binding to its port (default `9090`). The gNB will then wait in a continuous transmission state, ready for the O1 Adapter to establish a connection.
+
+## 7. Troubleshooting
+
+| Symptoms | Root Cause | Solution |
+| :--- | :--- | :--- |
+| **No USRP Device Found**<br>`can't open the radio device: none`<br>`Assertion (0) failed!` | The `-w USRP` parameter was used during build/execution, but no physical USRP SDR is connected to the host. | If using physical hardware, ensure the USRP is connected via USB 3.0 and passthrough to WSL2 is active. If running a pure simulation, recompile with RF Simulator enabled and use `--rfsim` instead. |
+| **SCTP Socket Bind Error**<br>`SCTP_BINDX_ADD_ADDR failed: errno 99`<br>`Cannot assign requested address` | The gNB configuration file attempts to bind to an IP address (e.g., `192.168.70.129`) that does not exist on the host's network interfaces. | Run `ip a` to check your WSL2 host IP. Open the `gnb.sa.band78...usrpb210.conf` file and update the IP addresses in the `NETWORK_INTERFACES` section to match your actual host IP. |
+| **Command Not Found**<br>`sudo: ./nr-softmodem: command not found` | The terminal is in the incorrect directory (e.g., `cmake_targets`) and cannot locate the built executable. | Ensure you navigate into the final build output directory using `cd ~/openairinterface5g/cmake_targets/ran_build/build` before executing the modem. |
+
+## 8. References
+* [OAI Official Documentation](https://gitlab.eurecom.fr/oai/openairinterface5g)
+* [O-RAN O1 Interface Specifications](https://www.o-ran.org/specifications)
