@@ -95,7 +95,6 @@ Navigate to the build directory and start the softmodem using the specified conf
 ```bash
 cd openairinterface5g/cmake_targets/ran_build/build
 
-# O1 telnet enable
 sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 -E --continuous-tx --log_config.PRACH_debug --telnetsrv --telnetsrv.shrmod o1
 ```
 
