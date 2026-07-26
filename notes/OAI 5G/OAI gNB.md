@@ -10,8 +10,12 @@
 > ⚠️ **Note**
 > This manual outlines the procedure for building and running the OpenAirInterface (OAI) gNB with the `telnetsrv` shared library enabled. This specific configuration is a strict prerequisite for enabling the OAI O1 Adapter to function properly and interface with the SMO Management Layer. 
 
+---
+
 ## 1. Executive Summary
 This document provides a standardized operating procedure for compiling, configuring, and executing the OpenAirInterface (OAI) 5G Base Station (gNB) with O1 management capabilities. By compiling a customized branch and enabling the telnet server module (`telnetsrv`), the gNB exposes a control interface on port 9090. This allows the standalone O1 Adapter to connect, enabling critical management functions such as Performance Management (PM), Configuration Management (CM), and Fault Management (FM) via NETCONF and VES protocols. 
+
+---
 
 ## 2. Architecture and Topology
 The system architecture integrates the traditional OAI RAN components with the SMO (Service Management and Orchestration) layer through the O1 interface. The topology is structured as follows:
@@ -45,6 +49,8 @@ graph TD
     O1_Adpt <-->|"NETCONF (O1)"| NETCONF
 ```
 
+---
+
 ## 3. Prerequisites
 The compilation and execution environment remains identical to the standard OAI 5G SA deployment to ensure consistency and prevent Out of Memory (OOM) crashes during massive C++ parallel builds.
 
@@ -58,6 +64,8 @@ The compilation and execution environment remains identical to the standard OAI 
         swap=8GB
         ```
 *   **Operating System**: Ubuntu 22.04 LTS (Kernel 6.6.87).
+
+---
 
 ## 4. Step-by-Step Guide
 
@@ -107,19 +115,43 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 *   `--telnetsrv`: Starts the Telnet Server, allowing external tools or the O1 Adapter to connect and control the modem.
 *   `--telnetsrv.shrmod o1`: Loads the O1 shared module to officially interface with the O1 Adapter.
 
+---
+
 ## 5. Configuration
 No special configuration modifications are required specifically for the O1 telnet module. The system utilizes the default USRP B210 Standalone configuration file (`gnb.sa.band78.fr1.106PRB.usrpb210.conf`). 
 
+---
+
 ## 6. Verification
-Upon executing the startup command in Step 4.3, the `nr-softmodem` process will initialize the gNB components. You should observe the telnet server successfully loading and binding to its port (default `9090`). The gNB will then wait in a continuous transmission state, ready for the O1 Adapter to establish a connection.
+To verify that the gNB has successfully started and the O1 Telnet management channel is operational, you can use the following commands in a new terminal window:
+
+*   **Check if the gNB process is running in the background:**
+    ```bash
+    ps aux | grep nr-softmodem
+    ```
+*   **Verify the Telnet Server is actively listening on Port 9090:**
+    ```bash
+    ss -tulpn | grep 9090
+    ```
+*   **Test local connectivity to the Telnet interface:**
+    ```bash
+    telnet 127.0.0.1 9090
+    ```
+
+---
 
 ## 7. Troubleshooting
 
+> **Critical Note regarding Verification:** 
+> The verification tests in Section 6 require the gNB process to be running continuously. However, if you execute the startup command with the `-w USRP` parameter but do not have physical USRP hardware connected, the gNB will immediately crash upon startup with a `No USRP Device Found` error. Consequently, the program will terminate, and you will not be able to successfully perform the port listening or telnet connection tests. To resolve this and proceed with testing, you must either connect a physical USRP device or switch the execution mode to the RF Simulator (`--rfsim`).
+
 | Symptoms | Root Cause | Solution |
 | :--- | :--- | :--- |
-| **No USRP Device Found**<br>`can't open the radio device: none`<br>`Assertion (0) failed!` | The `-w USRP` parameter was used during build/execution, but no physical USRP SDR is connected to the host. | If using physical hardware, ensure the USRP is connected via USB 3.0 and passthrough to WSL2 is active. If running a pure simulation, recompile with RF Simulator enabled and use `--rfsim` instead. |
+| **No USRP Device Found**<br>`can't open the radio device: none`<br>`Assertion (0) failed!` | The `-w USRP` parameter was used during build/execution, but no physical USRP SDR is connected to the host. | Connect a USRP via USB 3.0 and ensure passthrough to WSL2 is active. Alternatively, recompile with RF Simulator enabled and replace `-w USRP` with `--rfsim` in your execution command. |
 | **SCTP Socket Bind Error**<br>`SCTP_BINDX_ADD_ADDR failed: errno 99`<br>`Cannot assign requested address` | The gNB configuration file attempts to bind to an IP address (e.g., `192.168.70.129`) that does not exist on the host's network interfaces. | Run `ip a` to check your WSL2 host IP. Open the `gnb.sa.band78...usrpb210.conf` file and update the IP addresses in the `NETWORK_INTERFACES` section to match your actual host IP. |
 | **Command Not Found**<br>`sudo: ./nr-softmodem: command not found` | The terminal is in the incorrect directory (e.g., `cmake_targets`) and cannot locate the built executable. | Ensure you navigate into the final build output directory using `cd ~/openairinterface5g/cmake_targets/ran_build/build` before executing the modem. |
+
+---
 
 ## 8. References
 * [OAI Official Documentation](https://gitlab.eurecom.fr/oai/openairinterface5g)
