@@ -87,8 +87,8 @@ cd openairinterface5g/cmake_targets/
 sudo ./build_oai --ninja -c --gNB --nrUE --build-lib telnetsrv -w USRP -C    
 ```
 
-:warning: Note on sudo usage:
-Generally, do not use sudo with ./build_oai as it may cause system permission errors. sudo is typically only required in Step 4.3 to access hardware interfaces. However, if your specific environment throws a permission error without it, you may append sudo to proceed.
+> :warning: Note on sudo usage:
+> Generally, do not use sudo with ./build_oai as it may cause system permission errors. sudo is typically only required in Step 4.3 to access hardware interfaces. However, if your specific environment throws a permission error without it, you may append sudo to proceed.
 
 **Parameter Description:**
 *   `sudo`: Executes the command with superuser (root) privileges.
