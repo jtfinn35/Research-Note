@@ -1,3 +1,51 @@
+# OAI gNB with O1 Interface (Telnet Enabled) Deployment Manual
+
+![Version](https://img.shields.io/badge/version-v1.0-blue.svg)
+![Status](https://img.shields.io/badge/status-verified-brightgreen.svg)
+![OS](https://img.shields.io/badge/OS-Ubuntu_22.04-orange.svg)
+
+> **Author**: 黃仁廷 (JTFinn)
+> **Date Created**: 2026-07-26
+
+> ⚠️ **Note**
+> This manual outlines the procedure for building and running the OpenAirInterface (OAI) gNB with the `telnetsrv` shared library enabled. This specific configuration is a strict prerequisite for enabling the OAI O1 Adapter to function properly and interface with the SMO Management Layer. 
+
+## 1. Executive Summary
+This document provides a standardized operating procedure for compiling, configuring, and executing the OpenAirInterface (OAI) 5G Base Station (gNB) with O1 management capabilities. By compiling a customized branch and enabling the telnet server module (`telnetsrv`), the gNB exposes a control interface on port 9090. This allows the standalone O1 Adapter to connect, enabling critical management functions such as Performance Management (PM), Configuration Management (CM), and Fault Management (FM) via NETCONF and VES protocols. 
+
+## 2. Architecture and Topology
+The system architecture integrates the traditional OAI RAN components with the SMO (Service Management and Orchestration) layer through the O1 interface. The topology is structured as follows:
+
+```mermaid
+graph TD
+    %% Define Styles
+    classDef host fill:#2ca02c,stroke:#1b5e20,stroke-width:2px,color:#fff;
+    classDef proc fill:#1f77b4,stroke:#0d47a1,stroke-width:2px,color:#fff;
+    classDef sdr fill:#ff7f0e,stroke:#e65100,stroke-width:2px,color:#fff;
+    classDef smo fill:#9467bd,stroke:#4a148c,stroke-width:2px,color:#fff;
+
+    subgraph gNB_Host ["gNB Host (Ubuntu)"]
+        gNB_Process["OAI gNB Process<br/>(nr-softmodem)"]:::proc
+        TelnetSrv["telnetsrv Shared Lib<br/>(Port 9090)"]:::proc
+        O1_Adpt["OAI O1 Adapter"]:::proc
+        gNB_Process --- TelnetSrv
+    end
+
+    subgraph SMO_Layer ["SMO Management Layer"]
+        VES["VES Collector"]:::smo
+        NETCONF["NETCONF Server"]:::smo
+    end
+
+    RU["Radio Unit"]:::sdr
+
+    %% Connections
+    gNB_Process --- |"(Fronthaul)"| RU
+    O1_Adpt --- |"Telnet Commands (Port 9090)"| TelnetSrv
+    O1_Adpt -->|"VES Events (O1)"| VES
+    O1_Adpt <-->|"NETCONF (O1)"| NETCONF
+
+---
+
 ## 4. Step-by-Step Guide
 
 ### 4.1 Installing Dependencies
