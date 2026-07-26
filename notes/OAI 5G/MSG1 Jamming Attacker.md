@@ -129,3 +129,43 @@ sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band
 *   `--log_config.PRACH_debug`: Enables debug logs related to PRACH (Physical Random Access Channel) for easier tracking.
 *   `--telnetsrv`: Starts the Telnet Server, opening Port 9090 to allow external tools or the O1 Adapter to connect and control the modem.
 *   `--telnetsrv.shrmod o1`: Loads the O1 shared module to officially interface with the O1 Adapter.
+
+---
+
+## 5. Configuration and Parameters
+The MSG1 Jamming Attacker uses the OAI `nr-uesoftmodem` executable. Proper configuration of RF parameters is required to synchronize with the target gNB. Below are the key parameters used during execution:
+
+### 5.1 Core Execution Parameters
+*   `-r <value>`: Number of Resource Blocks (RB). Determines the bandwidth of the transmitted signal (e.g., `106` for 40MHz).
+*   `--numerology <value>`: Subcarrier Spacing (SCS). A value of `1` indicates 30 kHz spacing (typical for 5G NR FR1).
+*   `--band <value>`: The specific 5G frequency band to operate on (e.g., `78` for n78 / 3.3-3.8 GHz).
+*   `-C <frequency>`: The center frequency in Hz. This must strictly match the target gNB's SSB ARFCN converted to Hz (e.g., `3619200000` for ~3.6 GHz).
+*   `--ssb <offset>`: The Synchronization Signal Block (SSB) index. The attacker must align with this to transmit the MSG1 precisely.
+*   `-E`: Enables External Band Filter or specific hardware enhancements for the RF front-end.
+*   `--ue-fo-compensation`: Enables automatic frequency offset compensation to prevent drift caused by hardware thermal issues.
+
+### 5.2 Advanced Attack Options
+*   `--seq <value>`: Specifies the number of preambles to include in one root sequence to increase collision probability.
+*   `--ue-max-power <value>`: Overrides the UE maximum transmission power limitation.
+*   `-ue-txgain <value>`: Adjusts the UE transmit power (Tx Gain). Higher values (e.g., `120`) increase jamming intensity but risk hardware overheating.
+*   `-ue-rxgain <value>`: Adjusts the UE receive gain (Rx Gain).
+
+---
+
+## 6. Verification and Safety Guidelines
+To verify the execution of the attacker, you must monitor the terminal output for synchronization logs with the gNB. However, **strict RF isolation protocols must be followed** before initiating the transmission.
+
+> 🛑 **CRITICAL SAFETY WARNING: DO NOT TRANSMIT OVER-THE-AIR**
+> Currently, the target gNB does not have a USRP connected, meaning a closed-loop, cabled RF testing environment has not been established. **Under no circumstances should you execute the attacker command with an antenna attached to transmit signals into the open air (OTA).**
+>
+> The configured frequency (n78 band / 3.6 GHz) belongs to licensed commercial 5G spectrum. Transmitting MSG1 jamming signals without a coaxial cable + attenuator setup or a Faraday cage will directly disrupt surrounding public telecommunication networks, violating federal telecom regulations. Wait until both the gNB and Attacker SDRs are physically connected via RF cables before running the execution command.
+
+---
+
+## 7. Troubleshooting
+
+| Symptoms | Root Cause | Solution |
+| :--- | :--- | :--- |
+| **GitHub Authentication Failed**<br>`remote: Invalid username or token.`<br>`Password authentication is not supported...` | GitHub deprecated account password authentication for command-line Git operations in 2021. | Go to GitHub web **Settings** > **Developer settings** > **Personal access tokens (classic)**. Generate a new token with the `repo` scope checked. When prompted for a password during `git clone`, paste this token (starts with `ghp_`) instead of your account password. |
+| **Directory Not Found Cascade Error**<br>`cd: OAI-UE-MSG1-attacker: No such file or directory`<br>`./build_oai: No such file or directory` | This is a cascading failure caused by bulk copy-pasting commands. The `git clone` command failed (due to the auth issue above), so the folder was never created, causing all subsequent commands to fail. | Resolve the GitHub token issue first. Always execute the `git clone` command individually. Verify the repository has been downloaded 100% successfully before running the subsequent `cd` and `build` commands line-by-line. |
+| **UHD Device Not Found**<br>`No UHD devices found with address...` | The system cannot detect the USRP B210/X300 device via USB or Ethernet. | Ensure the USRP is properly powered and connected. If using a VM or WSL2, verify that USB/PCIe passthrough is actively forwarding the device to the Linux kernel. Check visibility by running the `uhd_find_devices` command. |
