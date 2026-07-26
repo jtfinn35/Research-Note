@@ -12,6 +12,21 @@
 
 ---
 
+## Table of Contents
+- [1. Executive Summary](#1-executive-summary)
+- [2. Architecture and Topology](#2-architecture-and-topology)
+- [3. Prerequisites](#3-prerequisites)
+- [4. Step-by-Step Guide](#4-step-by-step-guide)
+  - [4.1 Installing Dependencies](#41-installing-dependencies)
+  - [4.2 Clone Customized Repository and Build](#42-clone-customized-repository-and-build)
+  - [4.3 Run Modem (O1 Telnet Enabled)](#43-run-modem-o1-telnet-enabled)
+- [5. Configuration](#5-configuration)
+- [6. Verification](#6-verification)
+- [7. Troubleshooting](#7-troubleshooting)
+- [8. References](#8-references)
+
+---
+
 ## 1. Executive Summary
 This document provides a standardized operating procedure for compiling, configuring, and executing the OpenAirInterface (OAI) 5G Base Station (gNB) with O1 management capabilities. By compiling a customized branch and enabling the telnet server module (`telnetsrv`), the gNB exposes a control interface on port 9090. This allows the standalone O1 Adapter to connect, enabling critical management functions such as Performance Management (PM), Configuration Management (CM), and Fault Management (FM) via NETCONF and VES protocols. 
 
