@@ -43,7 +43,7 @@ graph TD
     O1_Adpt --- |"Telnet Commands (Port 9090)"| TelnetSrv
     O1_Adpt -->|"VES Events (O1)"| VES
     O1_Adpt <-->|"NETCONF (O1)"| NETCONF
-```
+    ```
 
 ---
 
