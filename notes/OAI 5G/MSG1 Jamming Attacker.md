@@ -172,6 +172,10 @@ The MSG1 Jamming Attacker uses the OAI `nr-uesoftmodem` executable. Proper confi
 *   `--ue-fo-compensation`: Enables automatic frequency offset compensation to prevent drift caused by hardware thermal issues.
 
 ### 5.2 Advanced Attack Options
+
+> 💡 **Parameter Compatibility Warning**
+> The standard OAI UE arguments for adjusting Tx/Rx gains are normally `--tx_gain` and `--rx_gain`. The parameters `-ue-txgain` and `-ue-rxgain` listed below may be customized specifically for the `Richard-OAI-UE-MSG1-attacker` branch. If you encounter an `unrecognized option` error during execution, please revert to the standard OAI parameters.
+
 *   `--seq <value>`: Specifies the number of preambles to include in one root sequence to increase collision probability.
 *   `--ue-max-power <value>`: Overrides the UE maximum transmission power limitation.
 *   `-ue-txgain <value>`: Adjusts the UE transmit power (Tx Gain). Higher values (e.g., `120`) increase jamming intensity but risk hardware overheating.
@@ -202,7 +206,10 @@ To verify the execution of the attacker, you must monitor the terminal output fo
 ## 8. References
 * [NTUST Customized MSG1 Attacker Repository (Richard-OAI-UE-MSG1-attacker)](https://github.com/bmw-ece-ntust/Richard-OAI-UE-MSG1-attacker)
 * [OpenAirInterface (OAI) Official GitLab Repository](https://gitlab.eurecom.fr/oai/openairinterface5g)
+* [OAI NR UE Official Execution Tutorial (COTS UE Setup)](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/NR_SA_Tutorial_COTS_UE.md)
 * [Ettus Research UHD (USRP Hardware Driver) Build and Install Guide](https://files.ettus.com/manual/page_build_guide.html)
+* [USRP B210 Hardware Specifications (Tx Power Limits)](https://kb.ettus.com/B200/B210/B200mini/B205mini)
 * [OAI 5G NR Execution and Parameters Documentation (RUNMODEM.md)](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/RUNMODEM.md)
 * [3GPP TS 38.211: NR; Physical channels and modulation (PRACH Specifications)](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3213)
+* [NCC Taiwan Frequency Allocation Table (Safety & Regulations)](https://www.ncc.gov.tw/chinese/show_file.aspx?table_name=news&file_sn=43407)
 * [GitHub Docs: Managing your personal access tokens (Classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
