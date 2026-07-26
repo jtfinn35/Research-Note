@@ -4,15 +4,12 @@
 To maintain a clean system directory, we will centralize all OAI projects within a dedicated workspace and clone the customized branch that supports the O1 interface and alert functionalities.
 
 ```bash
-# Create and navigate to the unified workspace
 mkdir ~/oai_workspace
 cd ~/oai_workspace
 
-# Clone the customized gNB repository and rename the folder to a clean 'OAI-gNB-O1'
 git clone [https://github.com/bmw-ece-ntust/Richard-oai-gNB.git](https://github.com/bmw-ece-ntust/Richard-oai-gNB.git) OAI-gNB-O1
 cd OAI-gNB-O1
 
-# Switch to the specific branch supporting O1 telnet alerts
 git switch O1-telnet-alert
 ```
 
@@ -20,10 +17,8 @@ git switch O1-telnet-alert
 Before compiling, it is necessary to install the required system dependencies. By executing the build script with the `-I` parameter, the system will automatically handle all necessary environments, including the USRP drivers:
 
 ```bash
-# Navigate to the build script directory
 cd ~/oai_workspace/OAI-gNB-O1/cmake_targets/
 
-# Install system and hardware-related dependencies
 ./build_oai -I
 ```
 
@@ -31,7 +26,6 @@ cd ~/oai_workspace/OAI-gNB-O1/cmake_targets/
 Use Ninja for multi-core accelerated compilation, and ensure the Telnet Server (`telnetsrv`) shared library is built alongside it. This is a critical prerequisite for the O1 Adapter connection.
 
 ```bash
-# Ensure you are still in the cmake_targets directory
 sudo ./build_oai --ninja -c --gNB --nrUE --build-lib telnetsrv -w USRP -C    
 ```
 
@@ -50,10 +44,8 @@ sudo ./build_oai --ninja -c --gNB --nrUE --build-lib telnetsrv -w USRP -C
 Once the build is complete, navigate to the final `build` directory and start the softmodem using the specified configuration file. The startup command must explicitly enable the Telnet service and load the O1 module.
 
 ```bash
-# Navigate to the executable directory
 cd ~/oai_workspace/OAI-gNB-O1/cmake_targets/ran_build/build
 
-# Start the gNB and enable the O1 Telnet function
 sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 -E --continuous-tx --log_config.PRACH_debug --telnetsrv --telnetsrv.shrmod o1
 ```
 
