@@ -141,6 +141,8 @@ To verify that the gNB has successfully started and the O1 Telnet management cha
     telnet 127.0.0.1 9090
     ```
 
+> 💡 Tip: If the command fails to execute or cannot display the specific process name (PID), prepend sudo to ensure you have the required root privileges (sudo ss -tulpn | grep 9090).
+
 ---
 
 ## 7. Troubleshooting
@@ -159,3 +161,6 @@ To verify that the gNB has successfully started and the O1 Telnet management cha
 ## 8. References
 * [OAI Official Documentation](https://gitlab.eurecom.fr/oai/openairinterface5g)
 * [O-RAN O1 Interface Specifications](https://www.o-ran.org/specifications)
+* [OAI O1 Adapter Standalone Repository](https://gitlab.eurecom.fr/oai/o1-adapter)
+* [OAI Telnet Server Module Documentation](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/doc/TELNETSRV.md)
+* [OAI RF Simulator User Guide](https://gitlab.eurecom.fr/oai/openairinterface5g/-/blob/develop/targets/ARCH/rfsimulator/README.md)
