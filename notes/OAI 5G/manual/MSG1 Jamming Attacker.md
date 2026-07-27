@@ -153,7 +153,6 @@ Once the build is complete, navigate to the execution directory to launch the at
 ```bash
 cd ~/oai_workspace/OAI-UE-MSG1-attacker/cmake_targets/ran_build/build
 
-# Launch the UE softmodem to broadcast MSG1 jamming signals
 sudo ./nr-uesoftmodem -r 106 --numerology 1 --band 78 -C 3619200000 --ssb 516 -E --ue-fo-compensation
 ```
 
